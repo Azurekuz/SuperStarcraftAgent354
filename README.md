@@ -12,9 +12,9 @@
 ### Sensors
 
 ## Group Members
-- Orion @slvr611
-- Desmond @wertzy
-- Cobi @coconnell1 
+- Orion Gesslein @slvr611
+- Desmond Lee @wertzy
+- Cobi O'Connell @coconnell1 
 - Eugene Kuznetsov @Azurekuz
 
 ## Description of Agent Interface
