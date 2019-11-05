@@ -20,3 +20,10 @@
 ## Description of Agent Interface
 
 ## Description of Simulation Interface
+
+## Task Distribution
+#### Week of November 4th
+- Orion:
+- Desmond:
+- Cobi:
+- Eugene:
