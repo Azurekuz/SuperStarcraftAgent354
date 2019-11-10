@@ -1,4 +1,9 @@
 ## Task Distribution
+#### Update on November 10th
+We actually got the ExampleAIModule, provided by BWAPI, buildable and working
+at least on Eugene's PC (maybe?). Currently trying to get everyone's versions working
+so we can begin implementing and testing the API out.
+
 #### Update on November 8th
 We have successfully gotten UAlbertaBot to work in SC1.
 Our next order of business is to strip it down to its very basics
