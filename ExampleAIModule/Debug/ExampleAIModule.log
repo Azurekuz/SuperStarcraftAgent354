@@ -1,16 +1,13 @@
-﻿Build started 08/11/2019 13:18:27.
-     1>Project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
+﻿Build started 10/11/2019 18:09:39.
+     1>Project "C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraftAgent354\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /Od /Oy- /D NOMINMAX /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Dll.cpp Source\ExampleAIModule.cpp
          Dll.cpp
          ExampleAIModule.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Program Files (x86)\BWAPI\Debug\ExampleAIModule.dll" /INCREMENTAL:NO /NOLOGO ../lib/BWAPId.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Program Files (x86)\BWAPI\Debug\ExampleAIModule.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"Debug\ExampleAIModule.lib" /MACHINE:X86 /SAFESEH /DLL Debug\Dll.obj
-         Debug\ExampleAIModule.obj
-            Creating library Debug\ExampleAIModule.lib and object Debug\ExampleAIModule.exp
-         ExampleAIModule.vcxproj -> C:\Program Files (x86)\BWAPI\Debug\ExampleAIModule.dll
-     1>Done Building Project "C:\Program Files (x86)\BWAPI\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)).
+     1>c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraftagent354\exampleaimodule\source\ExampleAIModule.h(2): fatal error C1083: Cannot open include file: 'BWAPI.h': No such file or directory (Source\ExampleAIModule.cpp)
+     1>Source\Dll.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI.h': No such file or directory
+     1>Done Building Project "C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraftAgent354\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:03.44
+Time Elapsed 00:00:00.68
