@@ -1,0 +1,13 @@
+﻿Build started 10/11/2019 18:09:39.
+     1>Project "C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraftAgent354\ExampleAIModule\ExampleAIModule.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /I../include /Zi /nologo /W3 /WX- /MP /Od /Oy- /D NOMINMAX /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D EXAMPLEAIMODULE_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Source\Dll.cpp Source\ExampleAIModule.cpp
+         Dll.cpp
+         ExampleAIModule.cpp
+     1>c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraftagent354\exampleaimodule\source\ExampleAIModule.h(2): fatal error C1083: Cannot open include file: 'BWAPI.h': No such file or directory (Source\ExampleAIModule.cpp)
+     1>Source\Dll.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI.h': No such file or directory
+     1>Done Building Project "C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraftAgent354\ExampleAIModule\ExampleAIModule.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:00.68
