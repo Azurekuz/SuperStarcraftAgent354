@@ -3,6 +3,7 @@
 *.opensdf
 *.user
 *.exe
+*.dll
 *.o
 UAlbertaBot/UAB_ErrorLog.txt
 UAlbertaBot/UAB_ErrorLog.txt

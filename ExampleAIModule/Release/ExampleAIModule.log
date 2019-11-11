@@ -1,8 +1,0 @@
-﻿  ExampleAIModule.cpp
-     Creating library Release\ExampleAIModule.lib and object Release\ExampleAIModule.exp
-  Generating code
-  38 of 3209 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    61 functions had inline decision re-evaluated but remain unchanged
-  Finished generating code
-  ExampleAIModule.vcxproj -> C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraftAgent354\Release\ExampleAIModule.dll
