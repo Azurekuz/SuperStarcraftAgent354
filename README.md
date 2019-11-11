@@ -1,17 +1,16 @@
-#PEAS
+# PEAS
 
-##Performance
+## Performance
 
-##Environment
+## Environment
 
-##Actuators
+## Actuators
 
-##Sensors
+## Sensors
 
-#Agent Interface Description
+# Agent Interface Description
 
-#Simulation Interface Description
-
+# Simulation Interface Description
 # Task Distribution
 ## Week of November 4th
 - Orion: Have the agent **build structures**
@@ -19,7 +18,8 @@
 - Cobi: Get the agent to **create SCV Units**
 - Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
 
-#Updates
+# Updates
+
 ## Update on November 10th
 We actually got the ExampleAIModule, provided by BWAPI, buildable and working
 at least on Eugene's PC (maybe?). Currently trying to get everyone's versions working
