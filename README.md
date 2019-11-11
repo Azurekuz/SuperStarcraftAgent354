@@ -3,6 +3,8 @@
 We actually got the ExampleAIModule, provided by BWAPI, buildable and working
 at least on Eugene's PC (maybe?). Currently trying to get everyone's versions working
 so we can begin implementing and testing the API out.
+Turns out he was using an older version of BWAPI which is why everything worked in VS2013 for him.
+Now it's a matter of getting everyone situated with BWAPI 4.4.0 and VS2017.
 
 #### Update on November 8th
 We have successfully gotten UAlbertaBot to work in SC1.
