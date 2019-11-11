@@ -7,7 +7,9 @@ using namespace Filter;
 void ExampleAIModule::onStart()
 {
   // Hello World!
-  Broodwar->sendText("Hello everyone. Eugene's here to cry... alone.");
+  Broodwar->sendText("I better see this dang message.");
+  Broodwar->setLocalSpeed(5);
+  Broodwar->setFrameSkip(0);
 
   // Print the map name.
   // BWAPI returns std::string when retrieving a string, don't forget to add .c_str() when printing!
@@ -15,9 +17,7 @@ void ExampleAIModule::onStart()
 
   // Enable the UserInput flag, which allows us to control the bot and type messages.
   Broodwar->enableFlag(Flag::UserInput);
-  // Set our BWAPI options here    
-  BWAPI::Broodwar->setLocalSpeed(5);
-  BWAPI::Broodwar->setFrameSkip(0);
+
   // Uncomment the following line and the bot will know about everything through the fog of war (cheat).
   //Broodwar->enableFlag(Flag::CompleteMapInformation);
 

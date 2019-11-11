@@ -1,0 +1,33 @@
+﻿  AIModule.cpp
+  BroodwarOutputDevice.cpp
+  BulletType.cpp
+  BWAPI.cpp
+  Color.cpp
+  DamageType.cpp
+  Error.cpp
+  Event.cpp
+  ExplosionType.cpp
+  Filters.cpp
+  Forceset.cpp
+  Game.cpp
+  GameType.cpp
+  Order.cpp
+  Player.cpp
+  Playerset.cpp
+  PlayerType.cpp
+  Position.cpp
+  Race.cpp
+  Region.cpp
+  Regionset.cpp
+  Streams.cpp
+  TechType.cpp
+  Unit.cpp
+  Unitset.cpp
+  UnitCommand.cpp
+  UnitCommandType.cpp
+  UnitSizeType.cpp
+  UnitType.cpp
+  UpgradeType.cpp
+  WeaponType.cpp
+  LINK : MSIL .netmodule or module compiled with /GL found; restarting link with /LTCG; add /LTCG to the link command line to improve linker performance
+  BWAPILIB.vcxproj -> C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraftAgent354\Release\BWAPILIB.lib
