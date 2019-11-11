@@ -1,7 +1,11 @@
 #PEAS
+
 ##Performance
+
 ##Environment
+
 ##Actuators
+
 ##Sensors
 
 #Agent Interface Description
