@@ -169,6 +169,48 @@ void ExampleAIModule::onFrame()
 
 		}
 
+
+		else if (u->getType() == UnitTypes::Terran_Barracks) // A resource depot is a Command Center, Nexus, or Hatchery
+		{
+
+			// Order the depot to construct more workers! But only when it is idle.
+			if (u->isIdle() && !u->train(UnitTypes::Terran_Marine))
+			{
+				// If that fails, draw the error at the location so that you can visibly see what went wrong!
+				// However, drawing the error once will only appear for a single frame
+				// so create an event that keeps it on the screen for some frames
+				Position pos = u->getPosition();
+				Error lastErr = Broodwar->getLastError();
+				Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
+					nullptr,    // condition
+					Broodwar->getLatencyFrames());  // frames to run
+
+// Retrieve the supply provider type in the case that we have run out of supplies
+				UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
+				static int lastCheckedSupply = 0;
+
+				// If we are supply blocked and haven't tried constructing more recently
+				if (lastErr == Errors::Insufficient_Supply &&
+					lastCheckedSupply + 400 < Broodwar->getFrameCount() &&
+					Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
+				{
+					lastCheckedSupply = Broodwar->getFrameCount();
+
+					// Retrieve a unit that is capable of constructing the supply needed
+					Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
+						(IsIdle || IsGatheringMinerals) &&
+						IsOwned);
+					// If a unit was found
+					if (supplyBuilder)
+					{
+						buildSupply(supplyBuilder, supplyProviderType);
+					} // closure: supplyBuilder is valid
+				} // closure: insufficient supply
+			} // closure: failed to train idle unit
+
+		}
+
+
 	} // closure: unit iterator
 
 	static int lastCheckedBuild = 0;
