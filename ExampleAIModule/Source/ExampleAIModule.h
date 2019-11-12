@@ -10,6 +10,7 @@ public:
   virtual void onStart();
   virtual void onEnd(bool isWinner);
   virtual void onFrame();
+
   virtual void onSendText(std::string text);
   virtual void onReceiveText(BWAPI::Player player, std::string text);
   virtual void onPlayerLeft(BWAPI::Player player);
@@ -25,5 +26,8 @@ public:
   virtual void onSaveGame(std::string gameName);
   virtual void onUnitComplete(BWAPI::Unit unit);
   // Everything below this line is safe to modify.
+
+  virtual void buildSupply(BWAPI::Unit supplyBuilder, BWAPI::UnitType supplyBuilderType);
+
 
 };
