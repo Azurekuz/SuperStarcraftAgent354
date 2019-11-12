@@ -1,8 +1,9 @@
-﻿  ExampleAIModule.cpp
+﻿  Dll.cpp
+  ExampleAIModule.cpp
      Creating library Release\ExampleAIModule.lib and object Release\ExampleAIModule.exp
   Generating code
-  38 of 3209 functions ( 1.2%) were compiled, the rest were copied from previous compilation.
-    0 functions were new in current compilation
-    78 functions had inline decision re-evaluated but remain unchanged
+  3234 of 3234 functions (100.0%) were compiled.
+    1290 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  ExampleAIModule.vcxproj -> C:\Users\eugen\BWAPI\Release\ExampleAIModule.dll
+  ExampleAIModule.vcxproj -> C:\Starcraft AI\Release\ExampleAIModule.dll

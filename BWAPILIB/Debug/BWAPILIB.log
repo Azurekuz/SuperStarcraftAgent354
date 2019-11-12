@@ -1,1 +1,62 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.Cpp.Platform.targets(67,5): error MSB8020: The build tools for v141_xp (Platform Toolset = 'v141_xp') cannot be found. To build using the v141_xp build tools, please install v141_xp build tools.  Alternatively, you may upgrade to the current Visual Studio tools by selecting the Project menu or right-click the solution, and then selecting "Retarget solution".
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Platforms\Win32\PlatformToolsets\v141_xp\Toolset.targets(39,5): warning MSB8051: Support for targeting Windows XP is deprecated and will not be present in future releases of Visual Studio. Please see https://go.microsoft.com/fwlink/?linkid=2023588 for more information.
+  AIModule.cpp
+  BroodwarOutputDevice.cpp
+  BulletType.cpp
+  BWAPI.cpp
+  Color.cpp
+  DamageType.cpp
+  Error.cpp
+  Event.cpp
+c:\starcraft ai\bwapilib\source\event.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Event.h': No such file or directory
+c:\starcraft ai\bwapilib\source\aimodule.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/AIModule.h': No such file or directory
+c:\starcraft ai\bwapilib\source\color.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Color.h': No such file or directory
+c:\starcraft ai\bwapilib\source\bwapi.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI.h': No such file or directory
+c:\starcraft ai\bwapilib\source\error.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/Error.h': No such file or directory
+c:\starcraft ai\bwapilib\source\bullettype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/BulletType.h': No such file or directory
+c:\starcraft ai\bwapilib\source\damagetype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/DamageType.h': No such file or directory
+  ExplosionType.cpp
+  Filters.cpp
+  Forceset.cpp
+  Game.cpp
+c:\starcraft ai\bwapilib\source\forceset.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Forceset.h': No such file or directory
+c:\starcraft ai\bwapilib\source\filters.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Filters.h': No such file or directory
+c:\starcraft ai\bwapilib\source\game.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Game.h': No such file or directory
+  GameType.cpp
+  Order.cpp
+  Player.cpp
+  Playerset.cpp
+  PlayerType.cpp
+  Position.cpp
+c:\starcraft ai\bwapilib\source\player.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Player.h': No such file or directory
+  Race.cpp
+c:\starcraft ai\bwapilib\source\position.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Position.h': No such file or directory
+c:\starcraft ai\bwapilib\source\playerset.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Playerset.h': No such file or directory
+  Region.cpp
+  Regionset.cpp
+c:\starcraft ai\bwapilib\source\regionset.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Regionset.h': No such file or directory
+c:\starcraft ai\bwapilib\source\region.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Region.h': No such file or directory
+  Streams.cpp
+  TechType.cpp
+c:\starcraft ai\bwapilib\source\streams.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Streams.h': No such file or directory
+  Unit.cpp
+c:\starcraft ai\bwapilib\source\unit.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Unit.h': No such file or directory
+  Unitset.cpp
+c:\starcraft ai\bwapilib\source\unitset.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/Unitset.h': No such file or directory
+  UnitCommand.cpp
+c:\starcraft ai\bwapilib\unitcommand.cpp(1): fatal error C1083: Cannot open include file: 'BWAPI/UnitCommand.h': No such file or directory
+  UnitCommandType.cpp
+  UnitSizeType.cpp
+c:\starcraft ai\bwapilib\source\explosiontype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/ExplosionType.h': No such file or directory
+  UnitType.cpp
+c:\starcraft ai\bwapilib\source\gametype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/GameType.h': No such file or directory
+  UpgradeType.cpp
+c:\starcraft ai\bwapilib\source\order.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/Order.h': No such file or directory
+c:\starcraft ai\bwapilib\source\race.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/Race.h': No such file or directory
+  WeaponType.cpp
+c:\starcraft ai\bwapilib\source\playertype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/PlayerType.h': No such file or directory
+c:\starcraft ai\bwapilib\source\techtype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/TechType.h': No such file or directory
+c:\starcraft ai\bwapilib\source\unitcommandtype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/UnitCommandType.h': No such file or directory
+c:\starcraft ai\bwapilib\source\unitsizetype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/UnitSizeType.h': No such file or directory
+c:\starcraft ai\bwapilib\source\weapontype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/UnitType.h': No such file or directory
+c:\starcraft ai\bwapilib\source\upgradetype.cpp(2): fatal error C1083: Cannot open include file: 'BWAPI/UpgradeType.h': No such file or directory
+c:\starcraft ai\bwapilib\source\unittype.cpp(6): fatal error C1083: Cannot open include file: 'BWAPI/UnitType.h': No such file or directory
