@@ -19,12 +19,6 @@ Starcraft, by default, provides the players with incomplete information which do
 
 # Task Distribution
 
-## Week of November 4th
-- Orion: Have the agent **build structures**
-- Desmond: Have the agent **create Barracks' Units**
-- Cobi: Get the agent to **create SCV Units**
-- Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
-
 ## Week of November 11th
 We have a functional repo and an agent to work off of. We have come up with a plan to split
 the agent up into three interacting modules: the Builder, the Producer, the Manager, and the Tactician.
@@ -35,6 +29,12 @@ Assignments:
 - Desmond: TBD
 - Cobi: TBD
 - Eugene: TBD
+
+## Week of November 4th
+- Orion: Have the agent **build structures**
+- Desmond: Have the agent **create Barracks' Units**
+- Cobi: Get the agent to **create SCV Units**
+- Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
 
 # Updates
 
