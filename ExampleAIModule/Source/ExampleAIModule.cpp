@@ -7,9 +7,9 @@ using namespace Filter;
 void ExampleAIModule::onStart()
 {
   // Hello World!
-  Broodwar->sendText("Hello world!");
+  Broodwar->sendText("Hello World!");
 
-  Broodwar->setLocalSpeed(5);
+  Broodwar->setLocalSpeed(3);
 
   Broodwar->setFrameSkip(0);
 
