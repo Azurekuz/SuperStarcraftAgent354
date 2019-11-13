@@ -25,6 +25,17 @@ Starcraft, by default, provides the players with incomplete information which do
 - Cobi: Get the agent to **create SCV Units**
 - Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
 
+## Week of November 11th
+We have a functional repo and an agent to work off of. We have come up with a plan to split
+the agent up into three interacting modules: the Builder, the Producer, the Manager, and the Tactician.
+Each will preside over a task the agent must account for such as the construction and upgrading of buildings,
+the production of units, the managment of workers, and the movement and control of armies.
+Assignments:
+- Orion: TBD
+- Desmond: TBD
+- Cobi: TBD
+- Eugene: TBD
+
 # Updates
 
 ## Update on November 10th
