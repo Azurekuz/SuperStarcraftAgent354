@@ -26,7 +26,6 @@ public:
   virtual void onSaveGame(std::string gameName);
   virtual void onUnitComplete(BWAPI::Unit unit);
   // Everything below this line is safe to modify.
-
   virtual void buildSupply(BWAPI::Unit supplyBuilder, BWAPI::UnitType supplyBuilderType);
 
 
