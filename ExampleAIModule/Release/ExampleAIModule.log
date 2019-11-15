@@ -1,8 +1,17 @@
-﻿  ExampleAIModule.cpp
+﻿  Dll.cpp
+  ExampleAIModule.cpp
+  WorkerManager.cpp
      Creating library Release\ExampleAIModule.lib and object Release\ExampleAIModule.exp
   Generating code
+<<<<<<< HEAD
   718 of 3288 functions (21.8%) were compiled, the rest were copied from previous compilation.
     30 functions were new in current compilation
     226 functions had inline decision re-evaluated but remain unchanged
+=======
+  429 of 4477 functions ( 9.6%) were compiled, the rest were copied from previous compilation.
+    4 functions were new in current compilation
+    31 functions had inline decision re-evaluated but remain unchanged
+>>>>>>> 6eb1758c1ea182840da73f859444c8cdcdc55227
   Finished generating code
-  ExampleAIModule.vcxproj -> C:\Starcraft AI\Release\ExampleAIModule.dll
+  ExampleAIModule.vcxproj -> D:\Starcraft 354 AI\SuperStarcraftAgent354\Release\ExampleAIModule.dll
+  ExampleAIModule.vcxproj -> D:\Starcraft 354 AI\SuperStarcraftAgent354\Release\ExampleAIModule.pdb (Full PDB)

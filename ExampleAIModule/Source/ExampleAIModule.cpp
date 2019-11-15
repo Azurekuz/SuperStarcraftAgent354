@@ -7,11 +7,21 @@ using namespace Filter;
 void ExampleAIModule::onStart()
 {
   // Hello World!
-  Broodwar->sendText("Hello World!");
+  Broodwar->sendText("Oh lord, please work, please work, PLEASE WORK T_T");
 
-  Broodwar->setLocalSpeed(3);
+  Broodwar->setLocalSpeed(5);
 
   Broodwar->setFrameSkip(0);
+
+  //Create subagents
+  workerManager = *new WorkerManager();
+
+
+  //Add units to appropriate subagents
+  for (auto &u : Broodwar->self()->getUnits())
+  {
+	  addUnit(u);
+  }
 
   // Print the map name.
   // BWAPI returns std::string when retrieving a string, don't forget to add .c_str() when printing!
@@ -80,6 +90,9 @@ void ExampleAIModule::onFrame()
 	if (Broodwar->getFrameCount() % Broodwar->getLatencyFrames() != 0)
 		return;
 
+	//Manage workers
+	workerManager.manageWorkers();
+
 	// Iterate through all the units that we own
 	for (auto &u : Broodwar->self()->getUnits())
 	{
@@ -104,31 +117,6 @@ void ExampleAIModule::onFrame()
 		// Finally make the unit do some stuff!
 
 
-		// If the unit is a worker unit
-		if (u->getType().isWorker())
-		{
-			// if our worker is idle
-			if (u->isIdle())
-			{
-				// Order workers carrying a resource to return them to the center,
-				// otherwise find a mineral patch to harvest.
-				if (u->isCarryingGas() || u->isCarryingMinerals())
-				{
-					u->returnCargo();
-				}
-				else if (!u->getPowerUp())  // The worker cannot harvest anything if it
-				{                             // is carrying a powerup such as a flag
-				  // Harvest from the nearest mineral patch or gas refinery
-					if (!u->gather(u->getClosestUnit(IsMineralField || IsRefinery)))
-					{
-						// If the call fails, then print the last error message
-						Broodwar << Broodwar->getLastError() << std::endl;
-					}
-
-				} // closure: has no powerup
-			} // closure: if idle
-
-		}
 		else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
 		{
 
@@ -365,10 +353,27 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
       Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
     }
   }
+
+  else {  //If not a replay add to appropriate subagent
+	  addUnit(unit);
+  }
+}
+
+void ExampleAIModule::addUnit(BWAPI::Unit unit) {
+	if (unit->getType() == Broodwar->self()->getRace().getWorker()) {
+		workerManager.addWorker(unit);
+	}
 }
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
+	removeUnit(unit);
+}
+
+void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
+	if (unit->getType() == Broodwar->self()->getRace().getWorker()) {
+		workerManager.removeWorker(unit);
+	}
 }
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
