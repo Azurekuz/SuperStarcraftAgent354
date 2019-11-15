@@ -4,7 +4,7 @@
 #include "../SparCraft/source/SparCraft.h"
 
 class UnitManager {
-	std::forward_list<BWAPI::Unit> armyUnits;
+	std::forward_list<BWAPI::Unit> militaryUnits;
 
 public:
 	virtual void addToMilitary(BWAPI::Unit newUnit);
