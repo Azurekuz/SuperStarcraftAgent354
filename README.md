@@ -37,6 +37,8 @@ Assignments:
 - Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
 
 # Updates
+## Update on November 15th
+We have decided on how we're distributing the AI modules. After talking with Toby, we have come to a point where we must consider developing a Unit Test in order to have a more effective and efficient verification process when it comes to checking our code and whether it works. This is meant to provide a better testing process than having to insert the DLL, launch the game, and wait for it all to play through.
 
 ## Update on November 10th
 We actually got the ExampleAIModule, provided by BWAPI, buildable and working
