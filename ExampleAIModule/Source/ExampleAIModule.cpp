@@ -9,9 +9,12 @@ void ExampleAIModule::onStart()
   // Hello World!
   Broodwar->sendText("Hello World!");
 
-  Broodwar->setLocalSpeed(3);
+  Broodwar->setLocalSpeed(5);
 
   Broodwar->setFrameSkip(0);
+
+  //Create subagents
+  //WorkerManager::WorkerManager workerManager = new WorkerManager::WorkerManager();
 
   // Print the map name.
   // BWAPI returns std::string when retrieving a string, don't forget to add .c_str() when printing!
