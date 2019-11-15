@@ -28,9 +28,12 @@ public:
   virtual void onUnitComplete(BWAPI::Unit unit);
   // Everything below this line is safe to modify.
 
-  
-
   virtual void buildSupply(BWAPI::Unit supplyBuilder, BWAPI::UnitType supplyBuilderType);
 
+  virtual void addUnit(BWAPI::Unit unit);
+  virtual void removeUnit(BWAPI::Unit unit);
+
+private:
+	WorkerManager workerManager;
 
 };
