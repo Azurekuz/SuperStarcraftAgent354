@@ -14,21 +14,21 @@ By making the agent, as well as using BWAPI (Brood War API), as users and develo
 Starcraft, by default, provides the players with incomplete information which done using a fog of war. The agent may only see within a specific radius around each allied structure and units, meaning that this is the only means of seeing enemy forces. This means that for our agent, it is working with an unknown or partially observable environment. The agent will know or be provided with information such as valid places to build or move units; however, when it comes to making tactical combat decisions, the onus is on the agent to properly scout and reveal the environment to ascertain its opponents' moves/actions so it can properly respond. Alternatively, to word it within the context of our class, the agent must ideally be capable of revealing information initially unknown to it, in order to have a more effective percept-action model.
 
 # Agent Interface Description
-
+The primary "interface" or API we're utilizing to interface our agent with _StarCraft: Brood War_ is __BWAPI__ or _Broodwar API_ which has a series of functions, object types, and data structures allowing us to represent and interact with game objects and commands in StarCraft. We're using Visual Studio to code and build our project into a .DLL file which is injected into the game.
 # Simulation Interface Description
+We use a custom launcher, _ChaosLauncher_ that injects our .DLL into the StarCraft in order for us to test it. The "simulation" is the actual game itself.
 
 # Task Distribution
-
 ## Week of November 11th
 We have a functional repo and an agent to work off of. We have come up with a plan to split
-the agent up into three interacting modules: the Builder, the Producer, the Manager, and the Tactician.
+the agent up into three interacting modules: the Builder, the Producer, the WorkerManager, and the UnitManager.
 Each will preside over a task the agent must account for such as the construction and upgrading of buildings,
 the production of units, the managment of workers, and the movement and control of armies.
 Assignments:
-- Orion: TBD
-- Desmond: TBD
-- Cobi: TBD
-- Eugene: TBD
+- Orion: Worker Managment
+- Desmond: Builder
+- Cobi: Producer
+- Eugene: Unit Management
 
 ## Week of November 4th
 - Orion: Have the agent **build structures**
@@ -37,6 +37,8 @@ Assignments:
 - Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
 
 # Updates
+## Update on November 15th
+We have decided on how we're distributing the AI modules. After talking with Toby, we have come to a point where we must consider developing a Unit Test in order to have a more effective and efficient verification process when it comes to checking our code and whether it works. This is meant to provide a better testing process than having to insert the DLL, launch the game, and wait for it all to play through.
 
 ## Update on November 10th
 We actually got the ExampleAIModule, provided by BWAPI, buildable and working
