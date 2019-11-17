@@ -7,7 +7,7 @@ using namespace Filter;
 void ExampleAIModule::onStart()
 {
   // Hello World!
-  Broodwar->sendText("Oh lord, please work, please work, PLEASE WORK T_T");
+  Broodwar->sendText("It works now :P");
 
   Broodwar->setLocalSpeed(5);
 
@@ -16,10 +16,8 @@ void ExampleAIModule::onStart()
   //Create subagents
   workerManager = *new WorkerManager();
 
-
-  //Add units to appropriate subagents
-  for (auto &u : Broodwar->self()->getUnits())
-  {
+  //Add minerals to lists
+  for (auto &u : Broodwar->getStaticMinerals()) {
 	  addUnit(u);
   }
 
@@ -353,15 +351,24 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
       Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
     }
   }
+}
 
-  else {  //If not a replay add to appropriate subagent
-	  addUnit(unit);
-  }
+void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
+{
+	addUnit(unit);
 }
 
 void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	if (unit->getType() == Broodwar->self()->getRace().getWorker()) {
 		workerManager.addWorker(unit);
+	}
+
+	if (unit->getType() == BWAPI::UnitTypes::Resource_Mineral_Field) {
+		workerManager.addResource(unit);
+	}
+
+	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
+		workerManager.addCC(unit);
 	}
 }
 
@@ -398,8 +405,4 @@ void ExampleAIModule::onUnitRenegade(BWAPI::Unit unit)
 void ExampleAIModule::onSaveGame(std::string gameName)
 {
   Broodwar << "The game was saved to \"" << gameName << "\"" << std::endl;
-}
-
-void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
-{
 }
