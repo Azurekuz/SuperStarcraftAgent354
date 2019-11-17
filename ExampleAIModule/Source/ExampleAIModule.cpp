@@ -303,7 +303,7 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 {
 }
 
-void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
+void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)  //DON'T USE THIS, it is called when production is started, use onUnitComplete instead
 {
   if ( Broodwar->isReplay() )
   {

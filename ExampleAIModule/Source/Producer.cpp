@@ -28,7 +28,7 @@ void Producer::produceTroops(Unit u)
 	if (u->getType() == UnitTypes::Terran_Barracks) // checks for terran barricks
 		{
 
-		// Order the barracks to train more workers! But only when it is idle.
+		// Order the barracks to train more marines! But only when it is idle.
 		if (u->isIdle() && !u->train(UnitTypes::Terran_Marine))
 		{
 			// If that fails, draw the error at the location so that you can visibly see what went wrong!
