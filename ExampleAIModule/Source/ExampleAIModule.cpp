@@ -15,6 +15,8 @@ void ExampleAIModule::onStart()
 
   //Create subagents
   workerManager = *new WorkerManager();
+  producer = *new Producer();
+
 
   //Add minerals to lists
   for (auto &u : Broodwar->getStaticMinerals()) {
@@ -91,6 +93,9 @@ void ExampleAIModule::onFrame()
 	//Manage workers
 	workerManager.manageWorkers();
 
+	//Produce troops (not yet added)
+	//producer.produceTroops();
+
 	// Iterate through all the units that we own
 	for (auto &u : Broodwar->self()->getUnits())
 	{
@@ -155,47 +160,7 @@ void ExampleAIModule::onFrame()
 
 		}
 
-
-		else if (u->getType() == UnitTypes::Terran_Barracks) // checks for terran barricks
-		{
-
-			// Order the barracks to train more workers! But only when it is idle.
-			if (u->isIdle() && !u->train(UnitTypes::Terran_Marine))
-			{
-				// If that fails, draw the error at the location so that you can visibly see what went wrong!
-				// However, drawing the error once will only appear for a single frame
-				// so create an event that keeps it on the screen for some frames
-				Position pos = u->getPosition();
-				Error lastErr = Broodwar->getLastError();
-				Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-					nullptr,    // condition
-					Broodwar->getLatencyFrames());  // frames to run
-
-// Retrieve the supply provider type in the case that we have run out of supplies
-				UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-				static int lastCheckedSupply = 0;
-
-				// If we are supply blocked and haven't tried constructing more recently
-				if (lastErr == Errors::Insufficient_Supply &&
-					lastCheckedSupply + 400 < Broodwar->getFrameCount() &&
-					Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-				{
-					lastCheckedSupply = Broodwar->getFrameCount();
-
-					// Retrieve a unit that is capable of constructing the supply needed
-					Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
-						(IsIdle || IsGatheringMinerals) &&
-						IsOwned);
-					// If a unit was found
-					if (supplyBuilder)
-					{
-						buildSupply(supplyBuilder, supplyProviderType);
-					} // closure: supplyBuilder is valid
-				} // closure: insufficient supply
-			} // closure: failed to train idle unit
-
-		}
-
+		producer.produceTroops(u);
 
 	} // closure: unit iterator
 
@@ -282,44 +247,44 @@ void ExampleAIModule::buildSupply(Unit supplyBuilder, UnitType supplyProviderTyp
 void ExampleAIModule::onSendText(std::string text)
 {
 
-  // Send the text to the game if it is not being processed.
-  Broodwar->sendText("%s", text.c_str());
+	// Send the text to the game if it is not being processed.
+	Broodwar->sendText("%s", text.c_str());
 
 
-  // Make sure to use %s and pass the text as a parameter,
-  // otherwise you may run into problems when you use the %(percent) character!
+	// Make sure to use %s and pass the text as a parameter,
+	// otherwise you may run into problems when you use the %(percent) character!
 
 }
 
 void ExampleAIModule::onReceiveText(BWAPI::Player player, std::string text)
 {
-  // Parse the received text
-  Broodwar << player->getName() << " said \"" << text << "\"" << std::endl;
+	// Parse the received text
+	Broodwar << player->getName() << " said \"" << text << "\"" << std::endl;
 }
 
 void ExampleAIModule::onPlayerLeft(BWAPI::Player player)
 {
-  // Interact verbally with the other players in the game by
-  // announcing that the other player has left.
-  Broodwar->sendText("Goodbye %s!", player->getName().c_str());
+	// Interact verbally with the other players in the game by
+	// announcing that the other player has left.
+	Broodwar->sendText("Goodbye %s!", player->getName().c_str());
 }
 
 void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 {
 
-  // Check if the target is a valid position
-  if ( target )
-  {
-    // if so, print the location of the nuclear strike target
-    Broodwar << "Nuclear Launch Detected at " << target << std::endl;
-  }
-  else 
-  {
-    // Otherwise, ask other players where the nuke is!
-    Broodwar->sendText("Where's the nuke?");
-  }
+	// Check if the target is a valid position
+	if (target)
+	{
+		// if so, print the location of the nuclear strike target
+		Broodwar << "Nuclear Launch Detected at " << target << std::endl;
+	}
+	else
+	{
+		// Otherwise, ask other players where the nuke is!
+		Broodwar->sendText("Where's the nuke?");
+	}
 
-  // You can also retrieve all the nuclear missile targets using Broodwar->getNukeDots()!
+	// You can also retrieve all the nuclear missile targets using Broodwar->getNukeDots()!
 }
 
 void ExampleAIModule::onUnitDiscover(BWAPI::Unit unit)
@@ -370,6 +335,10 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
 		workerManager.addCC(unit);
 	}
+	
+	else if (unit->getType() == UnitTypes::Buildings) {
+		producer.addBuilding(unit);
+	}
 }
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
@@ -380,6 +349,10 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 	if (unit->getType() == Broodwar->self()->getRace().getWorker()) {
 		workerManager.removeWorker(unit);
+	}
+
+	else if (unit->getType() == UnitTypes::Buildings) {
+		producer.removeBuilding(unit);
 	}
 }
 
