@@ -1,5 +1,6 @@
 #include "Producer.h"
 #include <iostream>
+#include <ctime>
 
 using namespace BWAPI;
 
@@ -62,9 +63,24 @@ void Producer::produceTroops(Unit u)
 				} // closure: supplyBuilder is valid
 			} // closure: insufficient supply
 		} // closure: failed to train idle unit
-
 		}
 
+	//randomly makes siege tank, goliath, or vulture , will change
+	if (u->getType() == UnitTypes::Terran_Factory) {
+		if (u->isIdle()) {
+			srand((unsigned)time(NULL));
+			int i = (rand() % 3) + 1;
+			if (i == 1) {
+				u->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
+			}
+			else if (i == 2) {
+				u->train(UnitTypes::Terran_Goliath);
+			}
+			else {
+				u->train(UnitTypes::Terran_Vulture);
+			}
+		}
+	}
 }
 
 void Producer::research()
