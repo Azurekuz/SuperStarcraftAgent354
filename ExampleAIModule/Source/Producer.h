@@ -17,8 +17,9 @@ private:
 public:
 	/* Going to need many more functions, this is just to start*/
 	Producer();
-	void produceTroops();
+	void produceTroops(BWAPI::Unit u);
 	void research();
 	void addBuilding(BWAPI::Unit unit);
 	void removeBuilding(BWAPI::Unit unit);
+	void buildSupply(BWAPI::Unit supplyBuilder, BWAPI::UnitType supplyProviderType); //remove once Builder checks supply
 };
