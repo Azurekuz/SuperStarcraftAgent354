@@ -15,6 +15,8 @@ void ExampleAIModule::onStart()
 
   //Create subagents
   workerManager = *new WorkerManager();
+  producer = *new Producer();
+
 
 
   //Add units to appropriate subagents
@@ -92,6 +94,9 @@ void ExampleAIModule::onFrame()
 
 	//Manage workers
 	workerManager.manageWorkers();
+
+	//Produce troops (not yet added)
+	//producer.produceTroops();
 
 	// Iterate through all the units that we own
 	for (auto &u : Broodwar->self()->getUnits())
@@ -284,44 +289,44 @@ void ExampleAIModule::buildSupply(Unit supplyBuilder, UnitType supplyProviderTyp
 void ExampleAIModule::onSendText(std::string text)
 {
 
-  // Send the text to the game if it is not being processed.
-  Broodwar->sendText("%s", text.c_str());
+	// Send the text to the game if it is not being processed.
+	Broodwar->sendText("%s", text.c_str());
 
 
-  // Make sure to use %s and pass the text as a parameter,
-  // otherwise you may run into problems when you use the %(percent) character!
+	// Make sure to use %s and pass the text as a parameter,
+	// otherwise you may run into problems when you use the %(percent) character!
 
 }
 
 void ExampleAIModule::onReceiveText(BWAPI::Player player, std::string text)
 {
-  // Parse the received text
-  Broodwar << player->getName() << " said \"" << text << "\"" << std::endl;
+	// Parse the received text
+	Broodwar << player->getName() << " said \"" << text << "\"" << std::endl;
 }
 
 void ExampleAIModule::onPlayerLeft(BWAPI::Player player)
 {
-  // Interact verbally with the other players in the game by
-  // announcing that the other player has left.
-  Broodwar->sendText("Goodbye %s!", player->getName().c_str());
+	// Interact verbally with the other players in the game by
+	// announcing that the other player has left.
+	Broodwar->sendText("Goodbye %s!", player->getName().c_str());
 }
 
 void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 {
 
-  // Check if the target is a valid position
-  if ( target )
-  {
-    // if so, print the location of the nuclear strike target
-    Broodwar << "Nuclear Launch Detected at " << target << std::endl;
-  }
-  else 
-  {
-    // Otherwise, ask other players where the nuke is!
-    Broodwar->sendText("Where's the nuke?");
-  }
+	// Check if the target is a valid position
+	if (target)
+	{
+		// if so, print the location of the nuclear strike target
+		Broodwar << "Nuclear Launch Detected at " << target << std::endl;
+	}
+	else
+	{
+		// Otherwise, ask other players where the nuke is!
+		Broodwar->sendText("Where's the nuke?");
+	}
 
-  // You can also retrieve all the nuclear missile targets using Broodwar->getNukeDots()!
+	// You can also retrieve all the nuclear missile targets using Broodwar->getNukeDots()!
 }
 
 void ExampleAIModule::onUnitDiscover(BWAPI::Unit unit)
@@ -342,26 +347,29 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)
 {
-  if ( Broodwar->isReplay() )
-  {
-    // if we are in a replay, then we will print out the build order of the structures
-    if ( unit->getType().isBuilding() && !unit->getPlayer()->isNeutral() )
-    {
-      int seconds = Broodwar->getFrameCount()/24;
-      int minutes = seconds/60;
-      seconds %= 60;
-      Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
-    }
-  }
+	if (Broodwar->isReplay())
+	{
+		// if we are in a replay, then we will print out the build order of the structures
+		if (unit->getType().isBuilding() && !unit->getPlayer()->isNeutral())
+		{
+			int seconds = Broodwar->getFrameCount() / 24;
+			int minutes = seconds / 60;
+			seconds %= 60;
+			Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
+		}
+	}
 
-  else {  //If not a replay add to appropriate subagent
-	  addUnit(unit);
-  }
+	else {  //If not a replay add to appropriate subagent
+		addUnit(unit);
+	}
 }
 
 void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	if (unit->getType() == Broodwar->self()->getRace().getWorker()) {
 		workerManager.addWorker(unit);
+	}
+	else if (unit->getType() == UnitTypes::Buildings) {
+		producer.addBuilding(unit);
 	}
 }
 
@@ -373,6 +381,10 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 	if (unit->getType() == Broodwar->self()->getRace().getWorker()) {
 		workerManager.removeWorker(unit);
+	}
+
+	else if (unit->getType() == UnitTypes::Buildings) {
+		producer.removeBuilding(unit);
 	}
 }
 

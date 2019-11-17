@@ -1,6 +1,7 @@
 #pragma once
 #include <BWAPI.h>
 #include "WorkerManager.h"
+#include "Producer.h"
 
 // Remember not to use "Broodwar" in any global class constructor!
 
@@ -34,5 +35,6 @@ public:
 
 private:
 	WorkerManager workerManager;
+	Producer producer;
 
 };
