@@ -96,6 +96,9 @@ void ExampleAIModule::onFrame()
 	//Produce troops (not yet added)
 	//producer.produceTroops();
 
+	//Command troops (TO BE DONE)
+	//unitManager.commandUnits();
+
 	// Iterate through all the units that we own
 	for (auto &u : Broodwar->self()->getUnits())
 	{

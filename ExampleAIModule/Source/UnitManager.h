@@ -18,11 +18,11 @@ class UnitManager {
 	std::forward_list<BWAPI::Unit> valkyrieUnits;
 	std::forward_list<BWAPI::Unit> vultureUnits;
 
-	bool isDebug = true;
+	bool isDebug = false;
 
 public:
 	UnitManager();
-
+	virtual void commandUnits();
 	virtual bool addUnit(BWAPI::Unit newUnit);
 	virtual bool removeUnit(BWAPI::Unit unit);
 	//virtual bool isCombatUnit(BWAPI::Unit unit);

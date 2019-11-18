@@ -4,6 +4,10 @@ UnitManager::UnitManager() {
 
 }
 
+void UnitManager::commandUnits()
+{
+}
+
 bool UnitManager::addUnit(BWAPI::Unit newUnit)
 {
 	if (newUnit->getType() == BWAPI::UnitTypes::Terran_Battlecruiser) {
