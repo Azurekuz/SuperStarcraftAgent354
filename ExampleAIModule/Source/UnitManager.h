@@ -18,7 +18,7 @@ class UnitManager {
 	std::forward_list<BWAPI::Unit> valkyrieUnits;
 	std::forward_list<BWAPI::Unit> vultureUnits;
 
-	bool isDebug = false;
+	bool isDebug = true;
 
 public:
 	UnitManager();
