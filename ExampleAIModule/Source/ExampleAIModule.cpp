@@ -7,7 +7,7 @@ using namespace Filter;
 void ExampleAIModule::onStart()
 {
   // Hello World!
-  Broodwar->sendText("It works now :P");
+  Broodwar << "It works now :P" << std::endl;
 
   Broodwar->setLocalSpeed(5);
 
@@ -172,7 +172,7 @@ void ExampleAIModule::onFrame()
 
 		lastCheckedBuild = Broodwar->getFrameCount();
 
-		Unit mainBase;
+		Unit mainBase = nullptr;
 
 		for (auto &u : Broodwar->self()->getUnits())
 		{
@@ -181,7 +181,7 @@ void ExampleAIModule::onFrame()
 			}
 		}
 
-		if (mainBase) {
+		if (mainBase != nullptr) {
 
 			UnitType buildingType = UnitTypes::Terran_Barracks;
 			TilePosition targetBuildLocation = Broodwar->getBuildLocation(buildingType, mainBase->getTilePosition());
@@ -248,7 +248,7 @@ void ExampleAIModule::onSendText(std::string text)
 {
 
 	// Send the text to the game if it is not being processed.
-	Broodwar->sendText("%s", text.c_str());
+	//Broodwar->sendText("%s", text.c_str());
 
 
 	// Make sure to use %s and pass the text as a parameter,
@@ -259,14 +259,14 @@ void ExampleAIModule::onSendText(std::string text)
 void ExampleAIModule::onReceiveText(BWAPI::Player player, std::string text)
 {
 	// Parse the received text
-	Broodwar << player->getName() << " said \"" << text << "\"" << std::endl;
+	//Broodwar << player->getName() << " said \"" << text << "\"" << std::endl;
 }
 
 void ExampleAIModule::onPlayerLeft(BWAPI::Player player)
 {
 	// Interact verbally with the other players in the game by
 	// announcing that the other player has left.
-	Broodwar->sendText("Goodbye %s!", player->getName().c_str());
+	Broodwar << "Goodbye " << player->getName().c_str() << "!" << std::endl;
 }
 
 void ExampleAIModule::onNukeDetect(BWAPI::Position target)
@@ -281,7 +281,7 @@ void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 	else
 	{
 		// Otherwise, ask other players where the nuke is!
-		Broodwar->sendText("Where's the nuke?");
+		Broodwar << "Where's the nuke?" <<std::endl;
 	}
 
 	// You can also retrieve all the nuclear missile targets using Broodwar->getNukeDots()!
@@ -305,17 +305,7 @@ void ExampleAIModule::onUnitHide(BWAPI::Unit unit)
 
 void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)  //DON'T USE THIS, it is called when production is started, use onUnitComplete instead
 {
-  if ( Broodwar->isReplay() )
-  {
-    // if we are in a replay, then we will print out the build order of the structures
-    if ( unit->getType().isBuilding() && !unit->getPlayer()->isNeutral() )
-    {
-      int seconds = Broodwar->getFrameCount()/24;
-      int minutes = seconds/60;
-      seconds %= 60;
-      Broodwar->sendText("%.2d:%.2d: %s creates a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
-    }
-  }
+  
 }
 
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
@@ -358,17 +348,6 @@ void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 
 void ExampleAIModule::onUnitMorph(BWAPI::Unit unit)
 {
-  if ( Broodwar->isReplay() )
-  {
-    // if we are in a replay, then we will print out the build order of the structures
-    if ( unit->getType().isBuilding() && !unit->getPlayer()->isNeutral() )
-    {
-      int seconds = Broodwar->getFrameCount()/24;
-      int minutes = seconds/60;
-      seconds %= 60;
-      Broodwar->sendText("%.2d:%.2d: %s morphs a %s", minutes, seconds, unit->getPlayer()->getName().c_str(), unit->getType().c_str());
-    }
-  }
 }
 
 void ExampleAIModule::onUnitRenegade(BWAPI::Unit unit)

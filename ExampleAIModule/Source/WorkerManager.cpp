@@ -4,11 +4,13 @@
 using namespace BWAPI;
 
 void WorkerManager::manageWorkers() {
-	/*manageBuildWorkers();
+	manageBuildWorkers();
 	assignIdleWorkers();
-	manageRepairWorkers();*/
+	manageRepairWorkers();
+	manageMineralWorkers();
+	manageGasWorkers();
 
-	for (auto &w : idleWorkerList)
+	/*for (auto &w : idleWorkerList)
 	{
 		// if our worker is idle
 		if (w->isIdle())
@@ -30,7 +32,7 @@ void WorkerManager::manageWorkers() {
 
 			} // closure: has no powerup
 		} // closure: if idle
-	}
+	}*/
 }
 
 void WorkerManager::manageBuildWorkers() {
@@ -49,84 +51,143 @@ void WorkerManager::manageBuildWorkers() {
 
 void WorkerManager::assignIdleWorkers() {
 	//Broodwar->sendText("Managing idle workers");
-	for (auto &w : idleWorkerList)
+	for (BWAPI::Unit& w : WorkerManager::idleWorkerList)
 	{
 		Unit nearestBase = w->getClosestUnit(Filter::IsResourceDepot);
 		//Broodwar->sendText("Working with SCV");
 
-		auto itr = WorkerManager::ccToID.find(nearestBase);  //Get ID based on nearest base
-		auto itr2 = WorkerManager::resourceMap.find(itr->second);  //Get list of resources at that base from resource map
+		std::list<std::array<BWAPI::Unit, 4>> cluster = WorkerManager::resourceMap[WorkerManager::ccToID[nearestBase]];  //Get list of resources at that base from resource map
 
-		std::list<std::array<BWAPI::Unit, 4>> tempList = itr2->second;
-
-		//Broodwar << "Mineral Cluster: " << itr->second << "!" << std::endl;
+		//Broodwar << "Mineral Cluster: " << WorkerManager::ccToID[nearestBase] << "!" << std::endl;
 
 
-		auto last = tempList.back();  //Get an iterator to the last value in the list
+		auto last = cluster.back();  //Get an iterator to the last value in the list
 
 		int targetIndex = -1;  //Set the target index to invalid
 
 		for (int i = 1; i < 4; i++) {
-			if (last.at(i) == nullptr) {
+			if (last[i] == nullptr) {
 				targetIndex = i;
+				break;
 			}
 		}
 
-		for (auto &ar : tempList)
+		for (auto &ar : cluster)
 		{
-			Broodwar->sendText("Checking tempList");
-			if (ar.at(targetIndex) == nullptr) {
-				ar.at(targetIndex) = w;
-				if (ar.at(0)->getType() == BWAPI::UnitTypes::Resource_Mineral_Field) {
-					WorkerManager::mineralWorkerList.push_front({ w, ar.at(0) });
+			if (ar[targetIndex] == nullptr) {
+				//Broodwar << "Targetindex: " << targetIndex << "!" << std::endl;
+				//Broodwar << "SCV assigned to patch: " << ar[0] << "!" << std::endl;
+				ar[targetIndex] = w;
+				//Broodwar << "SCV address: " << ar[targetIndex] << "!" << std::endl;
+				if (ar[0]->getType() == BWAPI::UnitTypes::Resource_Mineral_Field) {
+					WorkerManager::mineralWorkerList.push_front({ w, ar[0] });
 				}
 				else {
-					WorkerManager::gasWorkerList.push_front({ w, ar.at(0) });
+					WorkerManager::gasWorkerList.push_front({ w, ar[0] });
 				}
+				//WorkerManager::idleWorkerList.remove(w);
 
-				w->gather(ar.at(0));
-				Broodwar->sendText("Sending Mining!");
-				WorkerManager::idleWorkerList.remove(w);
+				break;
 			}
 		}
+		WorkerManager::resourceMap[WorkerManager::ccToID[nearestBase]] = cluster;
 	}
 
-	WorkerManager::idleWorkerList.clear();
+	idleWorkerList.clear();
 }
 
 void WorkerManager::manageRepairWorkers() {
 	
 }
 
+void WorkerManager::manageMineralWorkers() {
+	for (auto& a : WorkerManager::mineralWorkerList) {
+		if (a[0]->isIdle())
+		{
+			if (a[0]->isCarryingMinerals()) {
+				//Broodwar->sendText("Carrying Minerals, return it!");
+				a[0]->returnCargo();
+			}
+			else if (!a[0]->isGatheringMinerals()) {
+				//Broodwar << "Not Gathering, gather from: " << a[1] << "!" << std::endl;
+				a[0]->gather(a[1]);
+			}
+		}
+	}
+
+}
+
+void WorkerManager::manageGasWorkers() {
+	for (auto& a : WorkerManager::gasWorkerList) {
+		if (a[0]->isIdle()) {
+			if (a[0]->isCarryingGas()) {
+				a[0]->returnCargo();
+			}
+			else {
+				a[0]->gather(a[1]);
+			}
+		}
+	}
+}
+
 void WorkerManager::addWorker(Unit unit) {
-	//Broodwar->sendText("Adding SCV");
-	WorkerManager::idleWorkerList.push_front(unit);
+	if (unit != nullptr) {
+		//Broodwar->sendText("Adding SCV");
+		WorkerManager::idleWorkerList.push_front(unit);
+	}
 }
 
 void WorkerManager::removeWorker(Unit unit) {
 	WorkerManager::idleWorkerList.remove(unit);
 	WorkerManager::repairWorkerList.remove(unit);
+	WorkerManager::removeFromResourceMap(unit);
 	WorkerManager::mineralWorkerList.remove_if([unit](std::array<BWAPI::Unit, 2> x) { return x.at(0) == unit; });
 	WorkerManager::gasWorkerList.remove_if([unit](std::array<BWAPI::Unit, 2> x) { return x.at(0) == unit; });
+}
+
+void WorkerManager::removeFromResourceMap(Unit unit) {
+	std::array<Unit, 2> workerToRemove = {nullptr, nullptr};
+	for (auto& ar : WorkerManager::mineralWorkerList) {
+		if (ar[0] == unit) {
+			workerToRemove = ar;
+			break;
+		}
+	}
+	if (workerToRemove != *(new std::array<Unit, 2>{nullptr, nullptr})) {
+		for (auto& ar : WorkerManager::gasWorkerList) {
+			if (ar[0] == unit) {
+				workerToRemove = ar;
+				break;
+			}
+		}
+	}
+
+	if (workerToRemove != *(new std::array<Unit, 2>{nullptr, nullptr})) {
+
+		int resourceGroup = workerToRemove[1]->getResourceGroup();
+
+		for (auto& ar : resourceMap[resourceGroup]) {
+			if (ar[0] == workerToRemove[1]) {
+				for (int i = 1; i < 4; i++) {
+					if (ar[i] == workerToRemove[0]) {
+						for (int j = i; j < 3; j++) {
+							ar[j] = ar[j + 1];
+						}
+						ar[3] = nullptr;
+						break;
+						break;
+					}
+				}
+			}
+		}
+	}
 }
 
 void WorkerManager::addResource(Unit resource) {
 	//Broodwar->sendText("Adding a Mineral patch");
 	int resourceGroup = resource->getResourceGroup();
-	try {
-		auto it = WorkerManager::resourceMap.at(resourceGroup);
-	}
-	catch (std::out_of_range) {
-		std::list<std::array<BWAPI::Unit, 4>>* tempList = new std::list<std::array<BWAPI::Unit, 4>>;
-		tempList->assign({});
-		WorkerManager::resourceMap.insert({ resourceGroup, *tempList });
-		/*if (resourceGroup == 2) {
-			Broodwar << "New mineral cluster added: " << resourceGroup << "!" << std::endl;
-		}*/
-	}
-	auto tempList = WorkerManager::resourceMap.at(resourceGroup);
-	std::array<BWAPI::Unit, 4>* tempArray = new std::array<BWAPI::Unit, 4>{resource, nullptr, nullptr, nullptr};
-	tempList.push_front(*tempArray);
+	
+	resourceMap[resourceGroup].push_front(*new std::array<BWAPI::Unit, 4>{resource, nullptr, nullptr, nullptr});
 
 	/*if (resourceGroup == 2) {
 		Broodwar << "Drawing box!" << std::endl;

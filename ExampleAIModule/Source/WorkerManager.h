@@ -23,10 +23,13 @@ public:
 	void assignIdleWorkers();
 	void manageRepairWorkers();
 	void manageBuildWorkers();
+	void manageMineralWorkers();
+	void manageGasWorkers();
 
 
 	void addWorker(BWAPI::Unit unit);
 	void removeWorker(BWAPI::Unit unit);
+	void removeFromResourceMap(BWAPI::Unit unit);
 	void addResource(BWAPI::Unit resource);
 	void addCC(BWAPI::Unit cc);
 	BWAPI::Unit getBuilder(BWAPI::TilePosition loc);
