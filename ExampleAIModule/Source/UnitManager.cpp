@@ -1,14 +1,24 @@
 #include "UnitManager.h"
 
+using namespace BWAPI;
+
 UnitManager::UnitManager() {
 
 }
 
-void UnitManager::commandUnits()
-{
+void UnitManager::commandUnits(){
+	for (BWAPI::Unit &u : allCombatUnits) {
+		if (u->isIdle()){
+			u->patrol(u->getRegion()->getClosestAccessibleRegion()->getCenter());
+		}
+	}
 }
 
-bool UnitManager::addUnit(BWAPI::Unit newUnit)
+void UnitManager::addUnit(BWAPI::Unit newUnit) {
+	allCombatUnits.push_front(newUnit);
+}
+
+bool UnitManager::sortUnit(BWAPI::Unit newUnit)
 {
 	if (newUnit->getType() == BWAPI::UnitTypes::Terran_Battlecruiser) {
 		cruiserUnits.push_front(newUnit);
@@ -85,12 +95,12 @@ bool UnitManager::addUnit(BWAPI::Unit newUnit)
 		}
 		return true;
 	}
-
 	return false;
 }
 
 bool UnitManager::removeUnit(BWAPI::Unit unit)
 {
+	allCombatUnits.remove(unit);
 	if (unit->getType() == BWAPI::UnitTypes::Terran_Battlecruiser) {
 		cruiserUnits.remove(unit);
 		if (isDebug) {
@@ -168,6 +178,5 @@ bool UnitManager::removeUnit(BWAPI::Unit unit)
 		}
 		return true;
 	}
-
 	return false;
 }
