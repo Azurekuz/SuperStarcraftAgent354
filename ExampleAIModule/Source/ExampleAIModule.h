@@ -2,7 +2,7 @@
 #include <BWAPI.h>
 #include "WorkerManager.h"
 #include "Producer.h"
-
+#include "UnitManager.h"
 // Remember not to use "Broodwar" in any global class constructor!
 
 class ExampleAIModule : public BWAPI::AIModule
@@ -36,5 +36,5 @@ public:
 private:
 	WorkerManager workerManager;
 	Producer producer;
-
+	UnitManager unitManager;
 };
