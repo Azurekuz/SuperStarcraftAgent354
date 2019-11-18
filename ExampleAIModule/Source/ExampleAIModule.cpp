@@ -7,7 +7,7 @@ using namespace Filter;
 void ExampleAIModule::onStart()
 {
   // Hello World!
-  Broodwar->sendText("It works now :P");
+  Broodwar->sendText("SuperStarcraftBot354 is now activated!");
 
   Broodwar->setLocalSpeed(5);
 
@@ -339,6 +339,9 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	else if (unit->getType() == UnitTypes::Buildings) {
 		producer.addBuilding(unit);
 	}
+	else if (unitManager.addUnit(unit)) {
+		//Function will return true or false depending on if unit is combat unit.
+	}
 }
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
@@ -353,6 +356,9 @@ void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 
 	else if (unit->getType() == UnitTypes::Buildings) {
 		producer.removeBuilding(unit);
+	}
+	else if (unitManager.removeUnit(unit)) {
+		//Function will return true or false depending on if unit is combat unit.
 	}
 }
 
