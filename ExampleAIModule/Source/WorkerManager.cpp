@@ -10,58 +10,37 @@ void WorkerManager::manageWorkers() {
 	manageMineralWorkers();
 	manageGasWorkers();
 
-	/*for (auto &w : idleWorkerList)
-	{
-		// if our worker is idle
-		if (w->isIdle())
-		{
-			// Order workers carrying a resource to return them to the center,
-			// otherwise find a mineral patch to harvest.
-			if (w->isCarryingGas() || w->isCarryingMinerals())
-			{
-				w->returnCargo();
-			}
-			else if (!w->getPowerUp())  // The worker cannot harvest anything if it
-			{                             // is carrying a powerup such as a flag
-										  // Harvest from the nearest mineral patch or gas refinery
-				if (!w->gather(w->getClosestUnit(Filter::IsMineralField || Filter::IsRefinery)))
-				{
-					// If the call fails, then print the last error message
-					Broodwar << Broodwar->getLastError() << std::endl;
-				}
-
-			} // closure: has no powerup
-		} // closure: if idle
-	}*/
+	//drawWorkerJobs();
 }
 
 void WorkerManager::manageBuildWorkers() {
-	for (auto &w : WorkerManager::buildWorkerList)
+	auto it = buildWorkerList.begin();
+
+	while (it != buildWorkerList.end())
 	{
-		if (!w->exists())
-			continue;
 		// if our worker is idle
-		if (w->isIdle())
-		{
-			WorkerManager::idleWorkerList.push_front(w);
-			WorkerManager::buildWorkerList.remove(w);
+		if ((*it)->isIdle()){
+			idleWorkerList.push_front(*it);
+			it = buildWorkerList.erase(it);
+		}
+		else {
+			it++;
 		}
 	}
 }
 
 void WorkerManager::assignIdleWorkers() {
 	//Broodwar->sendText("Managing idle workers");
-	for (BWAPI::Unit& w : WorkerManager::idleWorkerList)
+	for (BWAPI::Unit w : idleWorkerList)
 	{
 		Unit nearestBase = w->getClosestUnit(Filter::IsResourceDepot);
 		//Broodwar->sendText("Working with SCV");
 
-		std::list<std::array<BWAPI::Unit, 4>> cluster = WorkerManager::resourceMap[WorkerManager::ccToID[nearestBase]];  //Get list of resources at that base from resource map
+		int id = ccToID[nearestBase];
 
-		//Broodwar << "Mineral Cluster: " << WorkerManager::ccToID[nearestBase] << "!" << std::endl;
+		//Broodwar << "Mineral Cluster: " << id << "!" << std::endl;
 
-
-		auto last = cluster.back();  //Get an iterator to the last value in the list
+		auto last = resourceMap[id].back();  //Get an iterator to the last value in the list
 
 		int targetIndex = -1;  //Set the target index to invalid
 
@@ -72,9 +51,9 @@ void WorkerManager::assignIdleWorkers() {
 			}
 		}
 
-		for (auto &ar : cluster)
+		for (auto &ar : resourceMap[id])
 		{
-			if (ar[targetIndex] == nullptr) {
+			if (ar[targetIndex] == nullptr && w->gather(ar[0])) {
 				//Broodwar << "Targetindex: " << targetIndex << "!" << std::endl;
 				//Broodwar << "SCV assigned to patch: " << ar[0] << "!" << std::endl;
 				ar[targetIndex] = w;
@@ -90,7 +69,6 @@ void WorkerManager::assignIdleWorkers() {
 				break;
 			}
 		}
-		WorkerManager::resourceMap[WorkerManager::ccToID[nearestBase]] = cluster;
 	}
 
 	idleWorkerList.clear();
@@ -101,24 +79,19 @@ void WorkerManager::manageRepairWorkers() {
 }
 
 void WorkerManager::manageMineralWorkers() {
-	for (auto& a : WorkerManager::mineralWorkerList) {
-		if (a[0]->isIdle())
-		{
-			if (a[0]->isCarryingMinerals()) {
-				//Broodwar->sendText("Carrying Minerals, return it!");
-				a[0]->returnCargo();
-			}
-			else if (!a[0]->isGatheringMinerals()) {
-				//Broodwar << "Not Gathering, gather from: " << a[1] << "!" << std::endl;
-				a[0]->gather(a[1]);
-			}
+	for (std::array<BWAPI::Unit, 2> a : WorkerManager::mineralWorkerList) {
+		if (!a[0]->isGatheringMinerals()) {
+			a[0]->gather(a[1]);
+		}
+		else if ((a[0]->getOrder() == Orders::MoveToMinerals) && (a[0]->getOrderTarget() != a[1])) {
+			a[0]->gather(a[1]);
 		}
 	}
 
 }
 
 void WorkerManager::manageGasWorkers() {
-	for (auto& a : WorkerManager::gasWorkerList) {
+	for (std::array<BWAPI::Unit, 2> a : WorkerManager::gasWorkerList) {
 		if (a[0]->isIdle()) {
 			if (a[0]->isCarryingGas()) {
 				a[0]->returnCargo();
@@ -127,6 +100,44 @@ void WorkerManager::manageGasWorkers() {
 				a[0]->gather(a[1]);
 			}
 		}
+	}
+}
+
+void WorkerManager::drawWorkerJobs() {
+	for (Unit w : WorkerManager::idleWorkerList) {
+		BWAPI::Position pos = w->getPosition();
+		BWAPI::Order order = w->getOrder();
+		Broodwar->registerEvent([pos, order](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, order.c_str()); },   // action
+			nullptr,    // condition
+			Broodwar->getLatencyFrames());  // frames to run
+	}
+	for (Unit w : WorkerManager::repairWorkerList) {
+		BWAPI::Position pos = w->getPosition();
+		BWAPI::Order order = w->getOrder();
+		Broodwar->registerEvent([pos, order](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, order.c_str()); },   // action
+			nullptr,    // condition
+			Broodwar->getLatencyFrames());  // frames to run
+	}
+	for (Unit w : WorkerManager::buildWorkerList) {
+		BWAPI::Position pos = w->getPosition();
+		BWAPI::Order order = w->getOrder();
+		Broodwar->registerEvent([pos, order](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, order.c_str()); },   // action
+			nullptr,    // condition
+			Broodwar->getLatencyFrames());  // frames to run
+	}
+	for (std::array<BWAPI::Unit, 2> a : WorkerManager::mineralWorkerList) {
+		BWAPI::Position pos = a[0]->getPosition();
+		BWAPI::Order order = a[0]->getOrder();
+		Broodwar->registerEvent([pos, order](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, order.c_str()); },   // action
+			nullptr,    // condition
+			Broodwar->getLatencyFrames());  // frames to run
+	}
+	for (std::array<BWAPI::Unit, 2> a : WorkerManager::gasWorkerList) {
+		BWAPI::Position pos = a[0]->getPosition();
+		BWAPI::Order order = a[0]->getOrder();
+		Broodwar->registerEvent([pos, order](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, order.c_str()); },   // action
+			nullptr,    // condition
+			Broodwar->getLatencyFrames());  // frames to run
 	}
 }
 
@@ -147,14 +158,14 @@ void WorkerManager::removeWorker(Unit unit) {
 
 void WorkerManager::removeFromResourceMap(Unit unit) {
 	std::array<Unit, 2> workerToRemove = {nullptr, nullptr};
-	for (auto& ar : WorkerManager::mineralWorkerList) {
+	for (std::array<BWAPI::Unit, 2> ar : WorkerManager::mineralWorkerList) {
 		if (ar[0] == unit) {
 			workerToRemove = ar;
 			break;
 		}
 	}
 	if (workerToRemove != *(new std::array<Unit, 2>{nullptr, nullptr})) {
-		for (auto& ar : WorkerManager::gasWorkerList) {
+		for (std::array<BWAPI::Unit, 2> ar : WorkerManager::gasWorkerList) {
 			if (ar[0] == unit) {
 				workerToRemove = ar;
 				break;
@@ -166,7 +177,7 @@ void WorkerManager::removeFromResourceMap(Unit unit) {
 
 		int resourceGroup = workerToRemove[1]->getResourceGroup();
 
-		for (auto& ar : resourceMap[resourceGroup]) {
+		for (std::array<BWAPI::Unit, 4> ar : resourceMap[resourceGroup]) {
 			if (ar[0] == workerToRemove[1]) {
 				for (int i = 1; i < 4; i++) {
 					if (ar[i] == workerToRemove[0]) {
@@ -188,20 +199,11 @@ void WorkerManager::addResource(Unit resource) {
 	int resourceGroup = resource->getResourceGroup();
 	
 	resourceMap[resourceGroup].push_front(*new std::array<BWAPI::Unit, 4>{resource, nullptr, nullptr, nullptr});
+}
 
-	/*if (resourceGroup == 2) {
-		Broodwar << "Drawing box!" << std::endl;
-		BWAPI::TilePosition pos = resource->getTilePosition();
-		BWAPI::UnitType min = BWAPI::UnitTypes::Resource_Mineral_Field;
-		Broodwar->registerEvent([pos, min](Game*)
-		{
-			Broodwar->drawBoxMap(Position(pos),
-				Position(pos + min.tileSize()),
-				Colors::Green);
-		},
-			nullptr,  // condition
-			10000);  // frames to run
-	}*/
+void WorkerManager::removeResource(Unit resource) {
+	//Broodwar << "Resource mined out!" << std::endl;
+
 }
 
 void WorkerManager::addCC(Unit cc) {
@@ -215,5 +217,20 @@ void WorkerManager::addCC(Unit cc) {
 }
 
 BWAPI::Unit WorkerManager::getBuilder(TilePosition loc) {
-	return nullptr;
+	BWAPI::Unit builder;
+
+	if (!idleWorkerList.empty()) {
+		builder = idleWorkerList.front();
+		buildWorkerList.push_front(builder);
+		idleWorkerList.pop_front();
+	}
+
+	else if (!mineralWorkerList.empty()){
+		builder = mineralWorkerList.front()[0];
+		removeFromResourceMap(mineralWorkerList.front()[0]);
+		buildWorkerList.push_front(builder);
+		mineralWorkerList.pop_front();
+	}
+
+	return builder;
 }
