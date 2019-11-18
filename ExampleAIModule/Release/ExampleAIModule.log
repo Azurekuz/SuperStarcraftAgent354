@@ -1,19 +1,21 @@
-﻿  Dll.cpp
-  ExampleAIModule.cpp
+﻿  Builder.cpp
+  Producer.cpp
   UnitManager.cpp
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\alphabetasearchparameters.hpp(67): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\Dll.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\alphabetasearchparameters.hpp(67): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\ExampleAIModule.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\alphabetasearchparameters.hpp(67): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\UnitManager.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\uctsearchparameters.hpp(74): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\ExampleAIModule.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\uctsearchparameters.hpp(74): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\UnitManager.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\uctsearchparameters.hpp(74): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\Dll.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\uctnode.h(59): warning C4267: 'return': conversion from 'size_t' to 'const SparCraft::IDType', possible loss of data (compiling source file Source\UnitManager.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\uctnode.h(59): warning C4267: 'return': conversion from 'size_t' to 'const SparCraft::IDType', possible loss of data (compiling source file Source\ExampleAIModule.cpp)
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\sparcraft\source\uctnode.h(59): warning C4267: 'return': conversion from 'size_t' to 'const SparCraft::IDType', possible loss of data (compiling source file Source\Dll.cpp)
+  WorkerManager.cpp
+  Dll.cpp
+  ExampleAIModule.cpp
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\AlphaBetaSearchParameters.hpp(67): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\Dll.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\AlphaBetaSearchParameters.hpp(67): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\UnitManager.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\AlphaBetaSearchParameters.hpp(67): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\ExampleAIModule.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\UCTSearchParameters.hpp(74): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\Dll.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\UCTSearchParameters.hpp(74): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\UnitManager.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\UCTSearchParameters.hpp(74): warning C4267: '=': conversion from 'size_t' to 'SparCraft::IDType', possible loss of data (compiling source file Source\ExampleAIModule.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\UCTNode.h(59): warning C4267: 'return': conversion from 'size_t' to 'const SparCraft::IDType', possible loss of data (compiling source file Source\UnitManager.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\UCTNode.h(59): warning C4267: 'return': conversion from 'size_t' to 'const SparCraft::IDType', possible loss of data (compiling source file Source\Dll.cpp)
+d:\starcraft 354 ai\superstarcraftagent354\sparcraft\source\UCTNode.h(59): warning C4267: 'return': conversion from 'size_t' to 'const SparCraft::IDType', possible loss of data (compiling source file Source\ExampleAIModule.cpp)
      Creating library Release\ExampleAIModule.lib and object Release\ExampleAIModule.exp
   Generating code
-  25 of 4019 functions ( 0.6%) were compiled, the rest were copied from previous compilation.
-    10 functions were new in current compilation
-    45 functions had inline decision re-evaluated but remain unchanged
+  All 5578 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
-  ExampleAIModule.vcxproj -> C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraft354\SuperStarcraftAgent354\Release\ExampleAIModule.dll
+  ExampleAIModule.vcxproj -> D:\Starcraft 354 AI\SuperStarcraftAgent354\Release\ExampleAIModule.dll
+  ExampleAIModule.vcxproj -> D:\Starcraft 354 AI\SuperStarcraftAgent354\Release\ExampleAIModule.pdb (Full PDB)

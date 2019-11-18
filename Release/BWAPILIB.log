@@ -4,8 +4,8 @@
   BWAPI.cpp
   Color.cpp
   DamageType.cpp
-  Event.cpp
   Error.cpp
+  Event.cpp
   ExplosionType.cpp
   Filters.cpp
   Forceset.cpp
