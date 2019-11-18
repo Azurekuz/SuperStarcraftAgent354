@@ -16,7 +16,7 @@ void ExampleAIModule::onStart()
   //Create subagents
   workerManager = *new WorkerManager();
   producer = *new Producer();
-
+  unitManager = *new UnitManager();
 
   //Add minerals to lists
   for (auto &u : Broodwar->getStaticMinerals()) {
@@ -97,7 +97,7 @@ void ExampleAIModule::onFrame()
 	//producer.produceTroops();
 
 	//Command troops (TO BE DONE)
-	//unitManager.commandUnits();
+	unitManager.commandUnits();
 
 	// Iterate through all the units that we own
 	for (auto &u : Broodwar->self()->getUnits())
@@ -332,8 +332,8 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	else if (unit->getType() == UnitTypes::Buildings) {
 		producer.addBuilding(unit);
 	}
-	else if (unitManager.addUnit(unit)) {
-		//Function will return true or false depending on if unit is combat unit.
+	else if (unitManager.sortUnit(unit)) {
+		unitManager.addUnit(unit);
 	}
 }
 
