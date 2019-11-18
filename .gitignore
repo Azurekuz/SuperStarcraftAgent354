@@ -10,3 +10,14 @@ UAlbertaBot/UAB_ErrorLog.txt
 *.pd_
 UAlbertaBot/UAB_ErrorLog.txt
 BOSS/VisualStudio/BOSS.VC.db
+*.opendb
+*.ipch
+*.ipch
+*.db-shm
+*.db-wal
+*.obj
+*.obj
+*.log
+*.pdb
+*.tlog
+*.ipch

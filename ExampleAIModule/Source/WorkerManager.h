@@ -11,7 +11,7 @@ class WorkerManager
 private:
 	std::forward_list<BWAPI::Unit> idleWorkerList{};
 	std::forward_list<BWAPI::Unit> repairWorkerList{};
-	std::forward_list<BWAPI::Unit> buildWorkerList{};
+	std::list<BWAPI::Unit> buildWorkerList{};
 	std::forward_list<std::array<BWAPI::Unit, 2>> mineralWorkerList{};
 	std::forward_list<std::array<BWAPI::Unit, 2>> gasWorkerList{};
 
@@ -25,12 +25,14 @@ public:
 	void manageBuildWorkers();
 	void manageMineralWorkers();
 	void manageGasWorkers();
+	void drawWorkerJobs();
 
 
 	void addWorker(BWAPI::Unit unit);
 	void removeWorker(BWAPI::Unit unit);
 	void removeFromResourceMap(BWAPI::Unit unit);
 	void addResource(BWAPI::Unit resource);
+	void removeResource(BWAPI::Unit resource);
 	void addCC(BWAPI::Unit cc);
 	BWAPI::Unit getBuilder(BWAPI::TilePosition loc);
 

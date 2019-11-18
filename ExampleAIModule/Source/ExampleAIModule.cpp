@@ -7,7 +7,7 @@ using namespace Filter;
 void ExampleAIModule::onStart()
 {
   // Hello World!
-  Broodwar->sendText("SuperStarcraftBot354 is now activated!");
+  Broodwar << "SuperStarcraftBot354 is now activated!" << std::endl;
 
   Broodwar->setLocalSpeed(5);
 
@@ -100,7 +100,7 @@ void ExampleAIModule::onFrame()
 	unitManager.commandUnits();
 
 	// Iterate through all the units that we own
-	for (auto &u : Broodwar->self()->getUnits())
+	for (Unit u : Broodwar->self()->getUnits())
 	{
 		// Ignore the unit if it no longer exists
 		// Make sure to include this block when handling any Unit pointer!
@@ -150,9 +150,7 @@ void ExampleAIModule::onFrame()
 					lastCheckedSupply = Broodwar->getFrameCount();
 
 					// Retrieve a unit that is capable of constructing the supply needed
-					Unit supplyBuilder = u->getClosestUnit(GetType == supplyProviderType.whatBuilds().first &&
-						(IsIdle || IsGatheringMinerals) &&
-						IsOwned);
+					Unit supplyBuilder = workerManager.getBuilder(u->getTilePosition());
 					// If a unit was found
 					if (supplyBuilder)
 					{
@@ -189,9 +187,7 @@ void ExampleAIModule::onFrame()
 			UnitType buildingType = UnitTypes::Terran_Barracks;
 			TilePosition targetBuildLocation = Broodwar->getBuildLocation(buildingType, mainBase->getTilePosition());
 
-			Unit builder = mainBase->getClosestUnit(GetType == buildingType.whatBuilds().first &&
-				(IsIdle || IsGatheringMinerals) &&
-				IsOwned);
+			Unit builder = workerManager.getBuilder(targetBuildLocation);
 
 			// If a unit was found
 			if (builder)
@@ -321,6 +317,10 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 		workerManager.addWorker(unit);
 	}
 
+	if (unit->getType() == BWAPI::UnitTypes::Terran_Refinery) {
+		workerManager.addResource(unit);
+	}
+
 	if (unit->getType() == BWAPI::UnitTypes::Resource_Mineral_Field) {
 		workerManager.addResource(unit);
 	}
@@ -345,6 +345,14 @@ void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 	if (unit->getType() == Broodwar->self()->getRace().getWorker()) {
 		workerManager.removeWorker(unit);
+	}
+
+	if (unit->getType() == BWAPI::UnitTypes::Terran_Refinery) {
+		workerManager.removeResource(unit);
+	}
+
+	if (unit->getType() == BWAPI::UnitTypes::Resource_Mineral_Field) {
+		workerManager.removeResource(unit);
 	}
 
 	else if (unit->getType() == UnitTypes::Buildings) {
