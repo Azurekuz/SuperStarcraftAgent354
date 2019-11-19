@@ -1,12 +1,23 @@
 #include "Builder.h"
+//#include "BWAPI/Interface.cpp"
 #include <iostream>
 
 using namespace BWAPI;
 using namespace Filter;
+/* Desmond Lee
+TODO: 
+-checkSupply()
+-BuildProduction()
+-Expand()
+*/
 
+Builder::Builder(BWAPI::Race race){
+	Builder::cummulativeSupply = Broodwar->self()->supplyTotal(race);
+	Builder::currentSupply = Broodwar->self()->supplyTotal(race);
+}
 
 void Builder::buildBarracks(UnitType Terran_Barracks){
-
+	
 }
 
 void Builder::buildSupply(Unit supplyBuilder, UnitType supplyProviderType) {
