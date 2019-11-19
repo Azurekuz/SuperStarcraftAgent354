@@ -2,7 +2,9 @@
 #include <iostream>
 #include <ctime>
 
+
 using namespace BWAPI;
+
 
 /* Cobi O'Connell
 on every frame need to produce and research.
@@ -23,65 +25,24 @@ Producer::Producer() {
 	Producer::otherList = {}; //other buildings not specified
 } 
 
-void Producer::produceTroops(Unit u)
-{
-	if (u->getType() == UnitTypes::Terran_Barracks) // checks for terran barricks
-		{
-
+void Producer::trainMarines() {
+	for (BWAPI::Unit& x : barracksList) {
 		// Order the barracks to train more marines! But only when it is idle.
-		if (u->isIdle() && !u->train(UnitTypes::Terran_Marine))
+		if (x->isIdle() && !x->train(UnitTypes::Terran_Marine))
 		{
 			// If that fails, draw the error at the location so that you can visibly see what went wrong!
 			// However, drawing the error once will only appear for a single frame
 			// so create an event that keeps it on the screen for some frames
-			Position pos = u->getPosition();
+			Position pos = x->getPosition();
 			Error lastErr = Broodwar->getLastError();
 			Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
 				nullptr,    // condition
 				Broodwar->getLatencyFrames());  // frames to run
-
-// to remove when builder can check for supply 
-// Retrieve the supply provider type in the case that we have run out of supplies
-			UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-			static int lastCheckedSupply = 0;
-
-			// If we are supply blocked and haven't tried constructing more recently
-			if (lastErr == Errors::Insufficient_Supply &&
-				lastCheckedSupply + 400 < Broodwar->getFrameCount() &&
-				Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-			{
-				lastCheckedSupply = Broodwar->getFrameCount();
-
-				// Retrieve a unit that is capable of constructing the supply needed
-				Unit supplyBuilder = u->getClosestUnit(Filter::GetType == supplyProviderType.whatBuilds().first &&
-					(Filter::IsIdle || Filter::IsGatheringMinerals) &&
-					Filter::IsOwned);
-				// If a unit was found
-				if (supplyBuilder)
-				{
-					buildSupply(supplyBuilder, supplyProviderType);
-				} // closure: supplyBuilder is valid
-			} // closure: insufficient supply
 		} // closure: failed to train idle unit
-		}
-
-	//randomly makes siege tank, goliath, or vulture , will change
-	if (u->getType() == UnitTypes::Terran_Factory) {
-		if (u->isIdle()) {
-			srand((unsigned)time(NULL));
-			int i = (rand() % 3) + 1;
-			if (i == 1) {
-				u->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
-			}
-			else if (i == 2) {
-				u->train(UnitTypes::Terran_Goliath);
-			}
-			else {
-				u->train(UnitTypes::Terran_Vulture);
-			}
-		}
 	}
 }
+
+
 
 void Producer::research()
 {
@@ -89,78 +50,64 @@ void Producer::research()
 }
 
 void Producer::addBuilding(Unit unit) {
-	if (unit->getType() == UnitTypes::Terran_Command_Center) {
+	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
 		Producer::commandcentersList.push_front(unit);
+		BWAPI::Broodwar << "Added Command Center to list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Barracks) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks) {
 		Producer::barracksList.push_front(unit);
+		BWAPI::Broodwar << "Added Barrack to list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Factory) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Factory) {
 		Producer::factoriesList.push_front(unit);
+		BWAPI::Broodwar << "Added Factory to list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Starport) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Starport) {
 		Producer::starportsLists.push_front(unit);
+		BWAPI::Broodwar << "Added Starport to list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Machine_Shop) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
 		Producer::machineshopsList.push_front(unit);
+		BWAPI::Broodwar << "Added Machine Shop to list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Armory) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
 		Producer::armoriesList.push_front(unit);
+		BWAPI::Broodwar << "Added Armory to list" << std::endl;
 	}
 	else {
 		Producer::otherList.push_front(unit);
+		BWAPI::Broodwar << "Added Other to list" << std::endl;
 	}
 }
 
 
 void Producer::removeBuilding(Unit unit) {
-	if (unit->getType() == UnitTypes::Terran_Command_Center) {
+	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
 		Producer::commandcentersList.remove(unit);
+		BWAPI::Broodwar << "Removed Command Center from list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Barracks) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks) {
 		Producer::barracksList.remove(unit);
+		BWAPI::Broodwar << "Removed Barracks from list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Factory) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Factory) {
 		Producer::factoriesList.remove(unit);
+		BWAPI::Broodwar << "Removed Factory from list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Starport) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Starport) {
 		Producer::starportsLists.remove(unit);
+		BWAPI::Broodwar << "Removed Starport from list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Machine_Shop) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
 		Producer::machineshopsList.remove(unit);
+		BWAPI::Broodwar << "Removed Machine Shop from list" << std::endl;
 	}
-	else if (unit->getType() == UnitTypes::Terran_Armory) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
 		Producer::armoriesList.remove(unit);
+		BWAPI::Broodwar << "Removed Armory from list" << std::endl;
 	}
 	else {
 		Producer::otherList.remove(unit);
-	}
-}
-
-//remove once builder checks supply
-void Producer::buildSupply(Unit supplyBuilder, UnitType supplyProviderType) {
-	if (supplyProviderType.isBuilding())
-	{
-		TilePosition targetBuildLocation = Broodwar->getBuildLocation(supplyProviderType, supplyBuilder->getTilePosition());
-		if (targetBuildLocation)
-		{
-			// Register an event that draws the target build location
-			Broodwar->registerEvent([targetBuildLocation, supplyProviderType](Game*)
-			{
-				Broodwar->drawBoxMap(Position(targetBuildLocation),
-					Position(targetBuildLocation + supplyProviderType.tileSize()),
-					Colors::Blue);
-			},
-				nullptr,  // condition
-				supplyProviderType.buildTime() + 100);  // frames to run
-
-														// Order the builder to construct the supply structure
-			supplyBuilder->build(supplyProviderType, targetBuildLocation);
-		}
-	}
-	else
-	{
-		// Train the supply provider (Overlord) if the provider is not a structure
-		supplyBuilder->train(supplyProviderType);
+		BWAPI::Broodwar << "Removed Other from list" << std::endl;
 	}
 }

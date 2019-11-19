@@ -1,81 +1,104 @@
-<<<<<<< HEAD
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\color.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\game.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unit.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\broodwaroutputdevice.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\explosiontype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\playerset.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitset.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\damagetype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\filters.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\region.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unittype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapi.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\playertype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\techtype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\aimodule.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\order.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\race.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitcommand.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bullettype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\forceset.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\position.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitcommandtype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\weapontype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\error.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\gametype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\regionset.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\upgradetype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\event.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\player.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\streams.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitsizetype.obj
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.pdb
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\release\bwapilib.lib
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.10400.write.1.tlog
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.command.1.tlog
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.read.1.tlog
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib-link.16084.read.1.tlog
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib-link.16084.write.1.tlog
-c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib.command.1.tlog
-=======
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\event.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\playerset.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\weapontype.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\error.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\player.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\streams.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unittype.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\aimodule.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\order.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\race.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unitcommand.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\damagetype.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\gametype.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\position.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unitset.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapi.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\playertype.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unit.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\broodwaroutputdevice.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\explosiontype.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\gametype.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\position.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unitcommandtype.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\damagetype.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\player.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\streams.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unitset.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\color.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\filters.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\regionset.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\upgradetype.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unitcommandtype.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bullettype.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\forceset.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\region.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unitsizetype.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\aimodule.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\broodwaroutputdevice.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\explosiontype.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\game.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\techtype.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\weapontype.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\error.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\order.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\race.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unitcommand.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\event.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\playerset.obj
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\unittype.obj
+d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\upgradetype.obj
 d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapilib.pdb
-d:\starcraft 354 ai\superstarcraftagent354\release\bwapilib.lib
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.command.1.tlog
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.read.1.tlog
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.write.1.tlog
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib-link.18340.read.1.tlog
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib-link.18340.write.1.tlog
-d:\starcraft 354 ai\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib.command.1.tlog
->>>>>>> master
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\event.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\playerset.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitset.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\error.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\filters.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\streams.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\upgradetype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\color.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\gametype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\position.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitcommand.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\damagetype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\game.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unit.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\broodwaroutputdevice.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\explosiontype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\player.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\region.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unittype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bullettype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\forceset.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\regionset.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitsizetype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\aimodule.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\order.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\race.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\unitcommandtype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\weapontype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapi.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\playertype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\techtype.obj
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\bwapilib\release\bwapilib.pdb
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapi.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\explosiontype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\game.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\playertype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\region.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\unitset.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\upgradetype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\broodwaroutputdevice.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\color.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\event.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\gametype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\playerset.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\regionset.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\unit.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\unittype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\aimodule.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\error.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\forceset.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\player.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\race.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\techtype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\unitcommandtype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\weapontype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bullettype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\damagetype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\filters.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\order.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\position.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\streams.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\unitcommand.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\unitsizetype.obj
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapilib.pdb
+c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\release\bwapilib.lib
+c:\users\cobio\superstarcraftagent354\release\bwapilib.lib
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.command.1.tlog
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.read.1.tlog
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapilib.tlog\cl.write.1.tlog
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib-link.2700.read.1.tlog
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib-link.2700.write.1.tlog
+c:\users\cobio\superstarcraftagent354\bwapilib\release\bwapilib.tlog\lib.command.1.tlog

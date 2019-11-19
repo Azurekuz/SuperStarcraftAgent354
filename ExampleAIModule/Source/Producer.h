@@ -13,13 +13,13 @@ private:
 	std::forward_list<BWAPI::Unit> armoriesList;
 	std::forward_list<BWAPI::Unit> otherList;
 	
+	
 
 public:
 	/* Going to need many more functions, this is just to start*/
 	Producer();
-	void produceTroops(BWAPI::Unit u);
+	void trainMarines();
 	void research();
 	void addBuilding(BWAPI::Unit unit);
 	void removeBuilding(BWAPI::Unit unit);
-	void buildSupply(BWAPI::Unit supplyBuilder, BWAPI::UnitType supplyProviderType); //remove once Builder checks supply
 };

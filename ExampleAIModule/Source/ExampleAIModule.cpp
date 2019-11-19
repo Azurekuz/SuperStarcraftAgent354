@@ -93,8 +93,9 @@ void ExampleAIModule::onFrame()
 	//Manage workers
 	workerManager.manageWorkers();
 
-	//Produce troops (not yet added)
-	//producer.produceTroops();
+	//Produce Troops
+	producer.trainMarines();
+	
 
 	//Command troops (TO BE DONE)
 	unitManager.commandUnits();
@@ -160,9 +161,6 @@ void ExampleAIModule::onFrame()
 			} // closure: failed to train idle unit
 
 		}
-
-		producer.produceTroops(u);
-
 	} // closure: unit iterator
 
 	static int lastCheckedBuild = 0;
@@ -327,10 +325,31 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 
 	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
 		workerManager.addCC(unit);
+		producer.addBuilding(unit);
 	}
 	
-	else if (unit->getType() == UnitTypes::Buildings) {
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks) {
 		producer.addBuilding(unit);
+	
+	}
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Factory) {
+		producer.addBuilding(unit);
+
+	}
+
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Starport) {
+		producer.addBuilding(unit);
+
+	}
+
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
+		producer.addBuilding(unit);
+
+	}
+
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
+		producer.addBuilding(unit);
+	
 	}
 	else if (unitManager.sortUnit(unit)) {
 		unitManager.addUnit(unit);
@@ -355,9 +374,36 @@ void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 		workerManager.removeResource(unit);
 	}
 
-	else if (unit->getType() == UnitTypes::Buildings) {
+	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
+		workerManager.addCC(unit);
 		producer.removeBuilding(unit);
 	}
+
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks) {
+		producer.removeBuilding(unit);
+
+	}
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Factory) {
+		producer.removeBuilding(unit);
+
+	}
+
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Starport) {
+		producer.removeBuilding(unit);
+
+	}
+
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
+		producer.removeBuilding(unit);
+
+	}
+
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
+		producer.removeBuilding(unit);
+
+	}
+
+	
 	else if (unitManager.removeUnit(unit)) {
 		//Function will return true or false depending on if unit is combat unit.
 	}
