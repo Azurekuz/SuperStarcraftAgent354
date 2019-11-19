@@ -13,11 +13,20 @@ TODO:
 
 Builder::Builder(BWAPI::Race race){
 	Builder::cummulativeSupply = Broodwar->self()->supplyTotal(race);
-	Builder::currentSupply = Broodwar->self()->supplyTotal(race);
+	Builder::usedSupply = Broodwar->self()->supplyUsed(race);
+	Builder::currentSupply = Broodwar->self()->supplyTotal(race) - Broodwar->self()->supplyUsed(race);
 }
 
+void Builder::checkSupply(Race race){
+	Builder::Builder(race);
+}
+
+/*void Builder::buildBarracks(Race race) {
+
+} */
+
 void Builder::buildBarracks(UnitType Terran_Barracks){
-	
+	auto it = buildWorkerList.begin();
 }
 
 void Builder::buildSupply(Unit supplyBuilder, UnitType supplyProviderType) {
