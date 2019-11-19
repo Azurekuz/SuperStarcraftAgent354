@@ -21,3 +21,5 @@ BOSS/VisualStudio/BOSS.VC.db
 *.pdb
 *.tlog
 *.ipch
+*.db
+.vs/ExampleProjects/v15/ipch/AutoPCH/9e3a1694b5f62101/EXAMPLEAIMODULE.ipch

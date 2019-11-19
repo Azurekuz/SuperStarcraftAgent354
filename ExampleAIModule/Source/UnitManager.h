@@ -1,10 +1,10 @@
 #pragma once
 #include <BWAPI.h>
 #include <forward_list>
-#include "../SparCraft/source/SparCraft.h"
+//#include "../SparCraft/source/SparCraft.h"
 
 class UnitManager {
-	std::forward_list<BWAPI::Unit*> allCombatUnits;
+	std::list<BWAPI::Unit> allCombatUnits;
 
 	std::forward_list<BWAPI::Unit> cruiserUnits;
 	std::forward_list<BWAPI::Unit> dropshipUnits;
@@ -23,7 +23,8 @@ class UnitManager {
 public:
 	UnitManager();
 	virtual void commandUnits();
-	virtual bool addUnit(BWAPI::Unit newUnit);
+	virtual void addUnit(BWAPI::Unit newUnit);
+	virtual bool sortUnit(BWAPI::Unit newUnit);
 	virtual bool removeUnit(BWAPI::Unit unit);
 	//virtual bool isCombatUnit(BWAPI::Unit unit);
 
