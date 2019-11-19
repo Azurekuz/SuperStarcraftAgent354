@@ -217,7 +217,7 @@ void WorkerManager::addCC(Unit cc) {
 }
 
 BWAPI::Unit WorkerManager::getBuilder(TilePosition loc) {
-	BWAPI::Unit builder;
+	BWAPI::Unit builder = nullptr;
 
 	if (!idleWorkerList.empty()) {
 		builder = idleWorkerList.front();

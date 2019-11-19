@@ -18,6 +18,16 @@ void ExampleAIModule::onStart()
   producer = *new Producer();
   unitManager = *new UnitManager();
 
+  Unit homeBase;
+
+  for (Unit u : Broodwar->self()->getUnits()) {
+	  if (u->getType() == UnitTypes::Terran_Command_Center) {
+		  homeBase = u;
+	  }
+  }
+
+  builder = *new Builder(&workerManager, homeBase);
+
   //Add minerals to lists
   for (auto &u : Broodwar->getStaticMinerals()) {
 	  addUnit(u);
@@ -94,124 +104,13 @@ void ExampleAIModule::onFrame()
 	workerManager.manageWorkers();
 
 	//Produce Troops
-	producer.trainMarines();
+	producer.trainTroops();
 	
-
 	//Command troops (TO BE DONE)
 	unitManager.commandUnits();
 
-	// Iterate through all the units that we own
-	for (Unit u : Broodwar->self()->getUnits())
-	{
-		// Ignore the unit if it no longer exists
-		// Make sure to include this block when handling any Unit pointer!
-		if (!u->exists())
-			continue;
-
-		// Ignore the unit if it has one of the following status ailments
-		if (u->isLockedDown() || u->isMaelstrommed() || u->isStasised())
-			continue;
-
-		// Ignore the unit if it is in one of the following states
-		if (u->isLoaded() || !u->isPowered() || u->isStuck())
-			continue;
-
-		// Ignore the unit if it is incomplete or busy constructing
-		if (!u->isCompleted() || u->isConstructing())
-			continue;
-
-
-		// Finally make the unit do some stuff!
-
-
-		else if (u->getType().isResourceDepot()) // A resource depot is a Command Center, Nexus, or Hatchery
-		{
-
-			// Order the depot to construct more workers! But only when it is idle.
-			if (u->isIdle() && !u->train(u->getType().getRace().getWorker()))
-			{
-				// If that fails, draw the error at the location so that you can visibly see what went wrong!
-				// However, drawing the error once will only appear for a single frame
-				// so create an event that keeps it on the screen for some frames
-				Position pos = u->getPosition();
-				Error lastErr = Broodwar->getLastError();
-				Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-					nullptr,    // condition
-					Broodwar->getLatencyFrames());  // frames to run
-
-// Retrieve the supply provider type in the case that we have run out of supplies
-				UnitType supplyProviderType = u->getType().getRace().getSupplyProvider();
-				static int lastCheckedSupply = 0;
-
-				// If we are supply blocked and haven't tried constructing more recently
-				if (lastErr == Errors::Insufficient_Supply &&
-					lastCheckedSupply + 400 < Broodwar->getFrameCount() &&
-					Broodwar->self()->incompleteUnitCount(supplyProviderType) == 0)
-				{
-					lastCheckedSupply = Broodwar->getFrameCount();
-
-					// Retrieve a unit that is capable of constructing the supply needed
-					Unit supplyBuilder = workerManager.getBuilder(u->getTilePosition());
-					// If a unit was found
-					if (supplyBuilder)
-					{
-						buildSupply(supplyBuilder, supplyProviderType);
-					} // closure: supplyBuilder is valid
-				} // closure: insufficient supply
-			} // closure: failed to train idle unit
-
-		}
-	} // closure: unit iterator
-
-	static int lastCheckedBuild = 0;
-
-	if (Broodwar->self()->minerals() >= 150 &&
-		lastCheckedBuild + 400 < Broodwar->getFrameCount() &&
-		Broodwar->self()->incompleteUnitCount(UnitTypes::Terran_Barracks) == 0) {
-
-		lastCheckedBuild = Broodwar->getFrameCount();
-
-		Unit mainBase = nullptr;
-
-		for (auto &u : Broodwar->self()->getUnits())
-		{
-			if (u->getType().isResourceDepot()) {
-				mainBase = u;
-			}
-		}
-
-		if (mainBase != nullptr) {
-
-			UnitType buildingType = UnitTypes::Terran_Barracks;
-			TilePosition targetBuildLocation = Broodwar->getBuildLocation(buildingType, mainBase->getTilePosition());
-
-			Unit builder = workerManager.getBuilder(targetBuildLocation);
-
-			// If a unit was found
-			if (builder)
-			{
-				if (targetBuildLocation)
-				{
-					// Register an event that draws the target build location
-					Broodwar->registerEvent([targetBuildLocation, buildingType](Game*)
-					{
-						Broodwar->drawBoxMap(Position(targetBuildLocation),
-							Position(targetBuildLocation + buildingType.tileSize()),
-							Colors::Green);
-					},
-						nullptr,  // condition
-						buildingType.buildTime() + 100);  // frames to run
-
-														  // Order the builder to construct the supply structure
-					builder->build(buildingType, targetBuildLocation);
-				}
-			} // closure: supplyBuilder is valid
-
-		}
-
-
-
-	}
+	//Build
+	builder.checkBuild();
 }
 
 void ExampleAIModule::buildSupply(Unit supplyBuilder, UnitType supplyProviderType) {

@@ -25,6 +25,11 @@ Producer::Producer() {
 	Producer::otherList = {}; //other buildings not specified
 } 
 
+void Producer::trainTroops() {
+	trainMarines();
+	trainSCVs();
+}
+
 void Producer::trainMarines() {
 	for (BWAPI::Unit& x : barracksList) {
 		// Order the barracks to train more marines! But only when it is idle.
@@ -39,6 +44,22 @@ void Producer::trainMarines() {
 				nullptr,    // condition
 				Broodwar->getLatencyFrames());  // frames to run
 		} // closure: failed to train idle unit
+	}
+}
+
+void Producer::trainSCVs() {
+	for (Unit cc : commandcentersList) {
+		if (cc->isIdle() && !cc->train(UnitTypes::Terran_SCV))
+		{
+			// If that fails, draw the error at the location so that you can visibly see what went wrong!
+			// However, drawing the error once will only appear for a single frame
+			// so create an event that keeps it on the screen for some frames
+			Position pos = cc->getPosition();
+			Error lastErr = Broodwar->getLastError();
+			Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
+				nullptr,    // condition
+				Broodwar->getLatencyFrames());  // frames to run
+		}
 	}
 }
 
