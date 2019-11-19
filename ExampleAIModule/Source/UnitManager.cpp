@@ -8,8 +8,14 @@ UnitManager::UnitManager() {
 
 void UnitManager::commandUnits(){
 	for (BWAPI::Unit &u : allCombatUnits) {
-		if (u->isIdle()){
+		if (u->isIdle() && allCombatUnits.size() < 15){
 			u->patrol(u->getRegion()->getClosestAccessibleRegion()->getCenter());
+		}
+		else if(allCombatUnits.size() >= 15){
+			BWAPI::Position enemyLoc = Position(Broodwar->enemy()->getStartLocation());
+			if(u ->hasPath(enemyLoc)){
+				u->attack(enemyLoc);
+			}
 		}
 	}
 }
