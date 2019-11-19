@@ -11,8 +11,10 @@ TODO:
 -Expand()
 */
 
-Builder::Builder() {
-
+Builder::Builder(BWAPI::Race race){
+	Builder::cummulativeSupply = Broodwar->self()->supplyTotal(race);
+	Builder::usedSupply = Broodwar->self()->supplyUsed(race);
+	Builder::currentSupply = Broodwar->self()->supplyTotal(race) - Broodwar->self()->supplyUsed(race);
 }
 
 Builder::Builder(WorkerManager* wm, BWAPI::Unit hb){
