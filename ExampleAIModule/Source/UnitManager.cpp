@@ -20,6 +20,12 @@ void UnitManager::commandUnits(){
 	}
 }
 
+void UnitManager::retaliate(BWAPI::Position destroyed) {
+	for (BWAPI::Unit &u : allCombatUnits) {
+		u->patrol(destroyed);
+	}
+}
+
 void UnitManager::addUnit(BWAPI::Unit newUnit) {
 	allCombatUnits.push_front(newUnit);
 }
