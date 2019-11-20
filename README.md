@@ -24,10 +24,10 @@ We use a custom launcher, _ChaosLauncher_ that injects our .DLL into the StarCra
 ### Agent Restructure: Multi-Cooperative Modules
 We've split our core code base and properly distributed the functions to their appropriate module. Our next step is to make each of our modules functional and intelligently designed, as well as having the agent be unifyingly intelligent by having the four modules communicate and work in tandem as a strong foundation for the agent's core.
 Assignments:
-- Orion: Curently optimizes how workers gather resoruces and from what particular depot locations. Next order of business is having the agent be able to expand and manage workers in other potential base locations, as well as scouting out the map.
-- Desmond: Working on checking for main places to build more buildings, as well as incorporating the tech-tree and advancement order of the agent.
-- Cobi: Marines and SCVs produced. Next is to produce advanced units when possible as well as researching/upgrading.
-- Eugene: Units are told to patrol in the tiles nearest to them upon creation. They will attack enemies who come in range. Next is to have the enemies capable to pathfind to the enemies base, which is the first step towards making our agent have offensive capabilities.
+- Orion: Currently optimizes how workers gather resoruces and from what particular depot locations. Next order of business is **having the agent be able to expand and manage workers in other potential base locations**, as well as **scouting out the map**.
+- Desmond: Working on **checking for main places to build more buildings**, as well as **incorporating the tech-tree and advancement order** of the agent.
+- Cobi: Marines and SCVs produced. Next is to **produce advanced units when possible** as well as **researching/upgrading**.
+- Eugene: Units are told to patrol in the tiles nearest to them upon creation. They will attack enemies who come in range. Next is to **have the enemies capable to pathfind to the enemies base**, which is the first step towards **making our agent have offensive capabilities**.
 
 ## Week of November 11th
 We have a functional repo and an agent to work off of. We have come up with a plan to split
@@ -35,10 +35,10 @@ the agent up into three interacting modules: the Builder, the Producer, the Work
 Each will preside over a task the agent must account for such as the construction and upgrading of buildings,
 the production of units, the managment of workers, and the movement and control of armies.
 Assignments:
-- Orion: Worker Managment
-- Desmond: Builder
-- Cobi: Producer
-- Eugene: Unit Management
+- Orion: **Worker Managment**
+- Desmond: **Builder**
+- Cobi: **Producer**
+- Eugene: **Unit Management**
 
 ## Week of November 4th
 - Orion: Have the agent **build structures**
