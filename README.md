@@ -15,11 +15,13 @@ Starcraft, by default, provides the players with incomplete information which do
 
 # Agent Interface Description
 The primary "interface" or API we're utilizing to interface our agent with _StarCraft: Brood War_ is __BWAPI__ or _Broodwar API_ which has a series of functions, object types, and data structures allowing us to represent and interact with game objects and commands in StarCraft. We're using Visual Studio to code and build our project into a .DLL file which is injected into the game.
+
 # Simulation Interface Description
 We use a custom launcher, _ChaosLauncher_ that injects our .DLL into the StarCraft in order for us to test it. The "simulation" is the actual game itself.
 
 # Task Distribution
 ## Week of November 18th
+### Agent Restructure: Multi-Cooperative Modules
 We've split our core code base and properly distributed the functions to their appropriate module. Our next step is to make each of our modules functional and intelligently designed, as well as having the agent be unifyingly intelligent by having the four modules communicate and work in tandem as a strong foundation for the agent's core.
 Assignments:
 - Orion: Curently optimizes how workers gather resoruces and from what particular depot locations. Next order of business is having the agent be able to expand and manage workers in other potential base locations, as well as scouting out the map.
