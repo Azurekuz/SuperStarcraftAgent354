@@ -31,9 +31,11 @@ void WorkerManager::manageBuildWorkers() {
 
 void WorkerManager::assignIdleWorkers() {
 	//Broodwar->sendText("Managing idle workers");
-	for (BWAPI::Unit w : idleWorkerList)
+	auto it = idleWorkerList.begin();
+
+	while (it != idleWorkerList.end())
 	{
-		Unit nearestBase = w->getClosestUnit(Filter::IsResourceDepot);
+		Unit nearestBase = (*it)->getClosestUnit(Filter::IsResourceDepot);
 		//Broodwar->sendText("Working with SCV");
 
 		int id = ccToID[nearestBase];
@@ -51,31 +53,47 @@ void WorkerManager::assignIdleWorkers() {
 			}
 		}
 
-		for (auto &ar : resourceMap[id])
-		{
-			if (ar[targetIndex] == nullptr && w->gather(ar[0])) {
-				//Broodwar << "Targetindex: " << targetIndex << "!" << std::endl;
-				//Broodwar << "SCV assigned to patch: " << ar[0] << "!" << std::endl;
-				ar[targetIndex] = w;
-				//Broodwar << "SCV address: " << ar[targetIndex] << "!" << std::endl;
-				if (ar[0]->getType() == BWAPI::UnitTypes::Resource_Mineral_Field) {
-					WorkerManager::mineralWorkerList.push_front({ w, ar[0] });
-				}
-				else {
-					WorkerManager::gasWorkerList.push_front({ w, ar[0] });
-				}
-				//WorkerManager::idleWorkerList.remove(w);
+		if (targetIndex != -1) {
 
-				break;
+			for (auto &ar : resourceMap[id])
+			{
+				if (ar[targetIndex] == nullptr && (*it)->gather(ar[0])) {
+					//Broodwar << "Targetindex: " << targetIndex << "!" << std::endl;
+					//Broodwar << "SCV assigned to patch: " << ar[0] << "!" << std::endl;
+					ar[targetIndex] = (*it);
+					//Broodwar << "SCV address: " << ar[targetIndex] << "!" << std::endl;
+					if (ar[0]->getType() == BWAPI::UnitTypes::Resource_Mineral_Field) {
+						WorkerManager::mineralWorkerList.push_front({ (*it), ar[0] });
+					}
+					else {
+						WorkerManager::gasWorkerList.push_front({ (*it), ar[0] });
+					}
+					it = idleWorkerList.erase(it);
+
+					break;
+				}
 			}
 		}
+		else {
+			it++;
+		}
 	}
-
-	idleWorkerList.clear();
 }
 
 void WorkerManager::manageRepairWorkers() {
-	
+	auto it = repairWorkerList.begin();
+
+	while (it != repairWorkerList.end())
+	{
+		// if our worker is idle
+		if ((*it)->isIdle()) {
+			idleWorkerList.push_front(*it);
+			it = buildWorkerList.erase(it);
+		}
+		else {
+			it++;
+		}
+	}
 }
 
 void WorkerManager::manageMineralWorkers() {
@@ -87,7 +105,6 @@ void WorkerManager::manageMineralWorkers() {
 			a[0]->gather(a[1]);
 		}
 	}
-
 }
 
 void WorkerManager::manageGasWorkers() {
@@ -152,8 +169,8 @@ void WorkerManager::removeWorker(Unit unit) {
 	WorkerManager::idleWorkerList.remove(unit);
 	WorkerManager::repairWorkerList.remove(unit);
 	WorkerManager::removeFromResourceMap(unit);
-	WorkerManager::mineralWorkerList.remove_if([unit](std::array<BWAPI::Unit, 2> x) { return x.at(0) == unit; });
-	WorkerManager::gasWorkerList.remove_if([unit](std::array<BWAPI::Unit, 2> x) { return x.at(0) == unit; });
+	WorkerManager::mineralWorkerList.remove_if([unit](std::array<BWAPI::Unit, 2> x) { return x[0] == unit; });
+	WorkerManager::gasWorkerList.remove_if([unit](std::array<BWAPI::Unit, 2> x) { return x[0] == unit; });
 }
 
 void WorkerManager::removeFromResourceMap(Unit unit) {
@@ -203,7 +220,26 @@ void WorkerManager::addResource(Unit resource) {
 
 void WorkerManager::removeResource(Unit resource) {
 	//Broodwar << "Resource mined out!" << std::endl;
+	std::list<std::array<Unit, 4>> cluster = resourceMap[resource->getResourceGroup()];
+	auto it = cluster.begin();
 
+	while (it != cluster.end())
+	{
+		if ((*it)[0] == resource) {
+			for (int i = 1; i < 4; i++) {
+				Unit worker = (*it)[i];
+				idleWorkerList.push_front(worker);
+				if ((*it)[0]->getType() == UnitTypes::Resource_Mineral_Field)
+					WorkerManager::mineralWorkerList.remove_if([worker](std::array<BWAPI::Unit, 2> x) { return x[0] == worker; });
+				else
+					WorkerManager::gasWorkerList.remove_if([worker](std::array<BWAPI::Unit, 2> x) { return x[0] == worker; });
+			}
+			it = cluster.erase(it);
+		}
+		else
+			it++;
+	}
+	resourceMap[resource->getResourceGroup()] = cluster;
 }
 
 void WorkerManager::addCC(Unit cc) {
@@ -214,6 +250,11 @@ void WorkerManager::addCC(Unit cc) {
 	}
 	auto it = WorkerManager::ccToID.find(cc);
 	//Broodwar << "Mineral Cluster: " << it->second << "!" << std::endl;
+}
+
+void WorkerManager::removeCC(Unit cc) {
+	auto it = ccToID.find(cc);
+	ccToID.erase(it);
 }
 
 BWAPI::Unit WorkerManager::getBuilder(TilePosition loc) {
@@ -231,6 +272,13 @@ BWAPI::Unit WorkerManager::getBuilder(TilePosition loc) {
 		buildWorkerList.push_front(builder);
 		mineralWorkerList.pop_front();
 	}
+
+	/*if (builder != nullptr) {
+		Broodwar << "Got worker!" << std::endl;
+	}
+	else {
+		Broodwar << "Failed to get worker!" << std::endl;
+	}*/
 
 	return builder;
 }

@@ -22,7 +22,7 @@ Builder::Builder(WorkerManager* wm, BWAPI::Unit hb){
 
 void Builder::checkBuild() {
 	if (Broodwar->self()->supplyUsed() > Broodwar->self()->supplyTotal() * 8 / 10 && Broodwar->self()->minerals() > 100 && Broodwar->getFrameCount() > lastCheckedSupply + 400) {
-		//Broodwar << "Create Supply Depot!" << std::endl;
+		Broodwar << "Create Supply Depot!" << std::endl;
 		lastCheckedSupply = Broodwar->getFrameCount();
 		BWAPI::UnitType buildingType = BWAPI::UnitTypes::Terran_Supply_Depot;
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
@@ -35,6 +35,8 @@ void Builder::checkBuild() {
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 }
+
+
 
 void Builder::build(TilePosition targetBuildLocation, UnitType buildingType){
 	Unit builder = workerManager->getBuilder(targetBuildLocation);

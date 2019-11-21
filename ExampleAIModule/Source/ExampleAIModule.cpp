@@ -9,15 +9,11 @@ void ExampleAIModule::onStart()
   // Hello World!
   Broodwar << "SuperStarcraftBot354 is now activated!" << std::endl;
 
-  Broodwar->setLocalSpeed(5);
+  Broodwar->setLocalSpeed(1);
 
   Broodwar->setFrameSkip(0);
 
-  //Create subagents
-  workerManager = *new WorkerManager();
-  producer = *new Producer();
-  unitManager = *new UnitManager();
-
+  //Find starting CC
   Unit homeBase;
 
   for (Unit u : Broodwar->self()->getUnits()) {
@@ -26,6 +22,10 @@ void ExampleAIModule::onStart()
 	  }
   }
 
+  //Create subagents
+  workerManager = *new WorkerManager();
+  producer = *new Producer();
+  unitManager = *new UnitManager();
   builder = *new Builder(&workerManager, homeBase);
 
   //Add minerals to lists
