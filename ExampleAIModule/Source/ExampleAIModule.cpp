@@ -8,11 +8,11 @@ void ExampleAIModule::onStart()
 {
   // Hello World!
   Broodwar << "SuperStarcraftBot354 is now activated!" << std::endl;
-
+  Broodwar << "Our Location:" << Position(Broodwar->self()->getStartLocation()) << std::endl;
+  Broodwar << "Enemy Location?:" << Position(Broodwar->enemy()->getStartLocation()) << std::endl;
   Broodwar->setLocalSpeed(5);
 
   Broodwar->setFrameSkip(0);
-
   //Create subagents
   workerManager = *new WorkerManager();
   producer = *new Producer();
@@ -90,6 +90,8 @@ void ExampleAIModule::onFrame()
 	// Display the game frame rate as text in the upper left area of the screen
 	Broodwar->drawTextScreen(200, 0, "FPS: %d", Broodwar->getFPS());
 	Broodwar->drawTextScreen(200, 20, "Average FPS: %f", Broodwar->getAverageFPS());
+	Broodwar->drawBoxMap(Position(Broodwar->enemy()->getStartLocation()), Position(Broodwar->enemy()->getStartLocation() + BWAPI::UnitTypes::Terran_Command_Center.tileSize()), Colors::Red);
+	Broodwar->drawBoxMap(Position(Broodwar->self()->getStartLocation()), Position(Broodwar->self()->getStartLocation() + BWAPI::UnitTypes::Terran_Command_Center.tileSize()), Colors::White);
 
 	// Return if the game is a replay or is paused
 	if (Broodwar->isReplay() || Broodwar->isPaused() || !Broodwar->self())
@@ -257,6 +259,7 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 
 void ExampleAIModule::onUnitDestroy(BWAPI::Unit unit)
 {
+	unitManager.retaliate(unit->getPosition());
 	removeUnit(unit);
 }
 

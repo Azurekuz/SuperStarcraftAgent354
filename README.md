@@ -15,20 +15,30 @@ Starcraft, by default, provides the players with incomplete information which do
 
 # Agent Interface Description
 The primary "interface" or API we're utilizing to interface our agent with _StarCraft: Brood War_ is __BWAPI__ or _Broodwar API_ which has a series of functions, object types, and data structures allowing us to represent and interact with game objects and commands in StarCraft. We're using Visual Studio to code and build our project into a .DLL file which is injected into the game.
+
 # Simulation Interface Description
 We use a custom launcher, _ChaosLauncher_ that injects our .DLL into the StarCraft in order for us to test it. The "simulation" is the actual game itself.
 
 # Task Distribution
+## Week of November 18th
+### Agent Restructure: Multi-Cooperative Modules
+We've split our core code base and properly distributed the functions to their appropriate module. Our next step is to make each of our modules functional and intelligently designed, as well as having the agent be unifyingly intelligent by having the four modules communicate and work in tandem as a strong foundation for the agent's core.
+Assignments:
+- Orion: Currently optimizes how workers gather resoruces and from what particular depot locations. Next order of business is **having the agent be able to expand and manage workers in other potential base locations**, as well as **scouting out the map**.
+- Desmond: Working on **checking for main places to build more buildings**, as well as **incorporating the tech-tree and advancement order** of the agent.
+- Cobi: Marines and SCVs produced. Next is to **produce advanced units when possible** as well as **researching/upgrading**.
+- Eugene: Units are told to patrol in the tiles nearest to them upon creation. They will attack enemies who come in range. Next is to **have the enemies capable to pathfind to the enemies base**, which is the first step towards **making our agent have offensive capabilities**.
+
 ## Week of November 11th
 We have a functional repo and an agent to work off of. We have come up with a plan to split
 the agent up into three interacting modules: the Builder, the Producer, the WorkerManager, and the UnitManager.
 Each will preside over a task the agent must account for such as the construction and upgrading of buildings,
 the production of units, the managment of workers, and the movement and control of armies.
 Assignments:
-- Orion: Worker Managment
-- Desmond: Builder
-- Cobi: Producer
-- Eugene: Unit Management
+- Orion: **Worker Managment**
+- Desmond: **Builder**
+- Cobi: **Producer**
+- Eugene: **Unit Management**
 
 ## Week of November 4th
 - Orion: Have the agent **build structures**
@@ -37,6 +47,10 @@ Assignments:
 - Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
 
 # Updates
+## Update on November 20th
+Our present plan is to create a multi-cooperative agent structure where each group member works on an individual module with its own independant set of responsibilities and functions; however, these modules will communicate with one another in order to function effectively while maintaining a relatively modular and readable source code. This is also to make working with the repo easier without stepping on one another's toes, especially when we're working on the code base simultaneously. We keep in mind the individual task our own modular agent must accomplish; however, we must also understand the interdependencies and communication with the other modules.
+Additionally, we've considered incorporating a finite-state machine structure in order to have agent be intelligent in its prioritization, since it must juggle between advancing and producing combat units to accumulate an army, but also manage the economy required to produce said army and increasing the maximum unit capacity to avoid creating a production bottleneck.
+
 ## Update on November 15th
 We have decided on how we're distributing the AI modules. After talking with Toby, we have come to a point where we must consider developing a Unit Test in order to have a more effective and efficient verification process when it comes to checking our code and whether it works. This is meant to provide a better testing process than having to insert the DLL, launch the game, and wait for it all to play through.
 
