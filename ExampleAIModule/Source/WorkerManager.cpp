@@ -55,6 +55,8 @@ void WorkerManager::assignIdleWorkers() {
 
 		if (targetIndex != -1) {
 
+			bool found = false;
+
 			for (auto &ar : resourceMap[id])
 			{
 				if (ar[targetIndex] == nullptr && (*it)->gather(ar[0])) {
@@ -70,8 +72,13 @@ void WorkerManager::assignIdleWorkers() {
 					}
 					it = idleWorkerList.erase(it);
 
+					found = true;
+
 					break;
 				}
+			}
+			if (!found) {
+				it++;
 			}
 		}
 		else {
@@ -236,8 +243,9 @@ void WorkerManager::removeResource(Unit resource) {
 			}
 			it = cluster.erase(it);
 		}
-		else
+		else {
 			it++;
+		}
 	}
 	resourceMap[resource->getResourceGroup()] = cluster;
 }
