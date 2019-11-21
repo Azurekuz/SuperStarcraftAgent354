@@ -73,31 +73,45 @@ void Producer::research()
 void Producer::addBuilding(Unit unit) {
 	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
 		Producer::commandcentersList.push_front(unit);
-		BWAPI::Broodwar << "Added Command Center to list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Added Command Center to list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks) {
 		Producer::barracksList.push_front(unit);
-		BWAPI::Broodwar << "Added Barrack to list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Added Barrack to list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Factory) {
 		Producer::factoriesList.push_front(unit);
-		BWAPI::Broodwar << "Added Factory to list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Added Factory to list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Starport) {
 		Producer::starportsLists.push_front(unit);
-		BWAPI::Broodwar << "Added Starport to list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Added Starport to list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
 		Producer::machineshopsList.push_front(unit);
-		BWAPI::Broodwar << "Added Machine Shop to list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Added Machine Shop to list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
 		Producer::armoriesList.push_front(unit);
-		BWAPI::Broodwar << "Added Armory to list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Added Armory to list" << std::endl;
+		}
 	}
 	else {
 		Producer::otherList.push_front(unit);
-		BWAPI::Broodwar << "Added Other to list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Added Other to list" << std::endl;
+		}
 	}
 }
 
@@ -105,30 +119,45 @@ void Producer::addBuilding(Unit unit) {
 void Producer::removeBuilding(Unit unit) {
 	if (unit->getType() == BWAPI::UnitTypes::Terran_Command_Center) {
 		Producer::commandcentersList.remove(unit);
-		BWAPI::Broodwar << "Removed Command Center from list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Removed Command Center from list" << std::endl;
+		}
+		
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks) {
 		Producer::barracksList.remove(unit);
-		BWAPI::Broodwar << "Removed Barracks from list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Removed Barracks from list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Factory) {
 		Producer::factoriesList.remove(unit);
-		BWAPI::Broodwar << "Removed Factory from list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Removed Factory from list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Starport) {
 		Producer::starportsLists.remove(unit);
-		BWAPI::Broodwar << "Removed Starport from list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Removed Starport from list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
 		Producer::machineshopsList.remove(unit);
-		BWAPI::Broodwar << "Removed Machine Shop from list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Removed Machine Shop from list" << std::endl;
+		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
 		Producer::armoriesList.remove(unit);
-		BWAPI::Broodwar << "Removed Armory from list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Removed Armory from list" << std::endl;
+		}
 	}
 	else {
 		Producer::otherList.remove(unit);
-		BWAPI::Broodwar << "Removed Other from list" << std::endl;
+		if (isTest) {
+			BWAPI::Broodwar << "Removed Other from list" << std::endl;
+		}
 	}
 }

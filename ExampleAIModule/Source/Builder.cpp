@@ -6,9 +6,9 @@ using namespace BWAPI;
 using namespace Filter;
 /* Desmond Lee
 TODO: 
--checkSupply()
--BuildProduction()
--Expand()
+
+-Expand():
+check for more places to build stuff
 */
 
 Builder::Builder() {
@@ -21,17 +21,36 @@ Builder::Builder(WorkerManager* wm, BWAPI::Unit hb){
 }
 
 void Builder::checkBuild() {
+	BWAPI::UnitType buildingType = BWAPI::UnitTypes::Terran_Supply_Depot;
 	if (Broodwar->self()->supplyUsed() > Broodwar->self()->supplyTotal() * 8 / 10 && Broodwar->self()->minerals() > 100 && Broodwar->getFrameCount() > lastCheckedSupply + 400) {
 		Broodwar << "Create Supply Depot!" << std::endl;
 		lastCheckedSupply = Broodwar->getFrameCount();
-		BWAPI::UnitType buildingType = BWAPI::UnitTypes::Terran_Supply_Depot;
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 
+	//Barracks=150
+	buildingType = BWAPI::UnitTypes::Terran_Barracks;
 	if (Broodwar->self()->minerals() > 150 && Broodwar->getFrameCount() > lastCheckedBarracks + 400) {
 		//Broodwar << "Create Barracks!" << std::endl;
 		lastCheckedBarracks = Broodwar->getFrameCount();
-		BWAPI::UnitType buildingType = BWAPI::UnitTypes::Terran_Barracks;
+		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
+	}
+
+
+	//Refinery=100
+	TilePosition RefineryLocation=homeBase->getClosestUnit(Filter::IsResourceContainer && !Filter::IsMineralField)->getTilePosition();
+	buildingType = BWAPI::UnitTypes::Terran_Refinery;
+	if (Broodwar->self()->minerals() > 250 && Broodwar->getFrameCount() > lastCheckedRefinery + 400) {
+		//Broodwar << "Create Refinery << std::endl;
+		lastCheckedRefinery = Broodwar->getFrameCount();
+		build(Broodwar->getBuildLocation(buildingType, RefineryLocation), buildingType);
+	}
+
+	//Factory=(200,
+	buildingType = BWAPI::UnitTypes::Terran_Factory;
+	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType)) {
+		//Broodwar << "Create Factory << std::endl;
+		lastCheckedFactory = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 }

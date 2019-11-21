@@ -9,7 +9,8 @@ private:
 	BWAPI::Unit homeBase;
 	int lastCheckedSupply = 0;
 	int lastCheckedBarracks = 0;
-
+	int lastCheckedRefinery = 0; 
+	int lastCheckedFactory = 0;
 public:
 	Builder();
 	Builder(WorkerManager* wm, BWAPI::Unit hb);

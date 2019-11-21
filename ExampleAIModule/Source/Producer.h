@@ -12,6 +12,7 @@ private:
 	std::forward_list<BWAPI::Unit> machineshopsList;
 	std::forward_list<BWAPI::Unit> armoriesList;
 	std::forward_list<BWAPI::Unit> otherList;
+	bool isTest = true;
 	
 	
 

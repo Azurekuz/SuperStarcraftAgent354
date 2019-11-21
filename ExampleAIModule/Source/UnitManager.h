@@ -26,6 +26,7 @@ public:
 	virtual void addUnit(BWAPI::Unit newUnit);
 	virtual bool sortUnit(BWAPI::Unit newUnit);
 	virtual bool removeUnit(BWAPI::Unit unit);
+	virtual void UnitManager::retaliate(BWAPI::Position destroyed);
 	//virtual bool isCombatUnit(BWAPI::Unit unit);
 
 };
