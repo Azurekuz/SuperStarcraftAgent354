@@ -26,8 +26,11 @@ Producer::Producer() {
 } 
 
 void Producer::trainTroops() {
-	trainMarines();
 	trainSCVs();
+	trainFactoryTroops();
+	if (factoriesList.size() < 3) {
+		trainMarines();
+	}
 }
 
 void Producer::trainMarines() {
@@ -48,7 +51,7 @@ void Producer::trainMarines() {
 }
 
 void Producer::trainSCVs() {
-	for (Unit cc : commandcentersList) {
+	for (BWAPI::Unit& cc : commandcentersList) {
 		if (cc->isIdle() && !cc->train(UnitTypes::Terran_SCV))
 		{
 			// If that fails, draw the error at the location so that you can visibly see what went wrong!
@@ -63,6 +66,32 @@ void Producer::trainSCVs() {
 	}
 }
 
+void Producer::trainFactoryTroops() {
+	for (BWAPI::Unit& f : factoriesList) {
+		if (f->canTrain(UnitTypes::Terran_Goliath) && f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode)) {
+			if (f->isIdle()) {
+				if (troopFlip == true) {
+					f->train(UnitTypes::Terran_Goliath);
+					troopFlip = false;
+				}
+				else {
+					f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
+					troopFlip = true; 
+				}
+			}
+		}
+		else if (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode)) {
+			if (f->isIdle()) {
+				f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
+			}
+		}
+		else {
+			if (f->isIdle()) {
+				f->train(UnitTypes::Terran_Vulture);
+			}
+		}
+	}
+}
 
 
 void Producer::research()

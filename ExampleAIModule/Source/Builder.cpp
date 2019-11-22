@@ -30,10 +30,11 @@ void Builder::checkBuild() {
 
 	//Barracks=150
 	buildingType = BWAPI::UnitTypes::Terran_Barracks;
-	if (Broodwar->self()->minerals() > 150 && Broodwar->getFrameCount() > lastCheckedBarracks + 400) {
+	if (Broodwar->self()->minerals() > 150 && Broodwar->getFrameCount() > lastCheckedBarracks + 400 && barracksCount <= barracksLimit) {
 		//Broodwar << "Create Barracks!" << std::endl;
 		lastCheckedBarracks = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
+		barracksCount += 1;
 	}
 
 
@@ -45,9 +46,9 @@ void Builder::checkBuild() {
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 
-	//Factory=(200,
+	//Factory=(200, 100)
 	buildingType = BWAPI::UnitTypes::Terran_Factory;
-	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType)) {
+	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType) && barracksCount > barracksLimit) {
 		//Broodwar << "Create Factory << std::endl;
 		lastCheckedFactory = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
