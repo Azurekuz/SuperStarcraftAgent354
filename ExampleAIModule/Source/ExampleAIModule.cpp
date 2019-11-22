@@ -210,7 +210,9 @@ void ExampleAIModule::onUnitCreate(BWAPI::Unit unit)  //DON'T USE THIS, it is ca
 
 void ExampleAIModule::onUnitComplete(BWAPI::Unit unit)
 {
-	addUnit(unit);
+	if (unit->getPlayer() == Broodwar->self()) {
+		addUnit(unit);
+	}
 }
 
 void ExampleAIModule::addUnit(BWAPI::Unit unit) {

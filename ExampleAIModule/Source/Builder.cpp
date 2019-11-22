@@ -38,12 +38,11 @@ void Builder::checkBuild() {
 
 
 	//Refinery=100
-	TilePosition RefineryLocation=homeBase->getClosestUnit(Filter::IsResourceContainer && !Filter::IsMineralField)->getTilePosition();
 	buildingType = BWAPI::UnitTypes::Terran_Refinery;
 	if (Broodwar->self()->minerals() > 250 && Broodwar->getFrameCount() > lastCheckedRefinery + 400) {
 		//Broodwar << "Create Refinery << std::endl;
 		lastCheckedRefinery = Broodwar->getFrameCount();
-		build(Broodwar->getBuildLocation(buildingType, RefineryLocation), buildingType);
+		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 
 	//Factory=(200,
