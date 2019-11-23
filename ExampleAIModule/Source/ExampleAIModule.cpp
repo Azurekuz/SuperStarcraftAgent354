@@ -107,8 +107,9 @@ void ExampleAIModule::onFrame()
 	//Manage workers
 	workerManager.manageWorkers();
 
-	//Produce Troops
+	//Produce Troops and research
 	producer.trainTroops();
+	producer.research();
 	
 	//Command troops (TO BE DONE)
 	unitManager.commandUnits();

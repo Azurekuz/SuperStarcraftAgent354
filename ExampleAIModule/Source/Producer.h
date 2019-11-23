@@ -18,7 +18,6 @@ private:
 	
 
 public:
-	/* Going to need many more functions, this is just to start*/
 	Producer();
 	void trainTroops();
 	void trainMarines();

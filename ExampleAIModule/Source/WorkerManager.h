@@ -26,6 +26,7 @@ public:
 	void manageMineralWorkers();
 	void manageGasWorkers();
 	void drawWorkerJobs();
+	void drawMineralStatus();
 
 
 	void addWorker(BWAPI::Unit unit);

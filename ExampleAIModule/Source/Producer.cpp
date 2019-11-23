@@ -7,13 +7,11 @@ using namespace BWAPI;
 
 
 /* Cobi O'Connell
-on every frame need to produce and research.
-1) Get base system for troop production (marines, vultures, siege machines, goliaths).
+1) Get base system for troop production (marines, vultures, siege machines, goliaths). 
 2) Get base system for research/upgrades (getting siege mode is high priority).
 3) Incorporate troop requests from unit manager (1/2 for requests, 1/2 for default, for now).
 4) Test default troop combos and research order to see what wins more often.*/
 
-/* Going to need many more functions, this is just to start*/
 
 Producer::Producer() {
 	Producer::commandcentersList = {};
@@ -68,23 +66,41 @@ void Producer::trainSCVs() {
 
 void Producer::trainFactoryTroops() {
 	for (BWAPI::Unit& f : factoriesList) {
-		if (f->canTrain(UnitTypes::Terran_Goliath) && f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode)) {
+		//If you can make both goliaths and siege tanks, alternate between the two
+		if (f->canTrain(UnitTypes::Terran_Goliath) && (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode) || f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode))) {
 			if (f->isIdle()) {
 				if (troopFlip == true) {
 					f->train(UnitTypes::Terran_Goliath);
 					troopFlip = false;
 				}
 				else {
-					f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
-					troopFlip = true; 
+					//make siege mode tanks if siege mode is researched
+					if (f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode)) {
+						f->train(UnitTypes::Terran_Siege_Tank_Siege_Mode);
+						troopFlip = true;
+					}
+					else {
+						//make normal siege tanks if not yet researched
+						f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
+						troopFlip = true;
+					} 
 				}
 			}
 		}
-		else if (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode)) {
+		//if can make seige tanks but not goliaths
+		else if (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode) || f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode)) {
 			if (f->isIdle()) {
-				f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
+				//make siege mode tanks if siege mode is researched
+				if (f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode)) {
+					f->train(UnitTypes::Terran_Siege_Tank_Siege_Mode);
+				} 
+				else {
+					//make normal siege tanks if not yet researched
+					f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
+				}
 			}
 		}
+		//if cannot make siege tanks or goliaths but do have a basic factory
 		else {
 			if (f->isIdle()) {
 				f->train(UnitTypes::Terran_Vulture);
@@ -96,7 +112,11 @@ void Producer::trainFactoryTroops() {
 
 void Producer::research()
 {
-	
+	for (BWAPI::Unit& ms : machineshopsList) {
+		if (ms->canResearch(TechTypes::Tank_Siege_Mode)) {
+			ms->research(TechTypes::Tank_Siege_Mode);
+		}
+	}
 }
 
 void Producer::addBuilding(Unit unit) {
