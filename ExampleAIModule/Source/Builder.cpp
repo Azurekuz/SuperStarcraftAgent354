@@ -15,9 +15,10 @@ Builder::Builder() {
 
 }
 
-Builder::Builder(WorkerManager* wm, BWAPI::Unit hb){
+Builder::Builder(WorkerManager* wm, Producer* pdcr, BWAPI::Unit hb){
 	workerManager = wm;
 	homeBase = hb;
+	producer = pdcr;
 }
 
 void Builder::checkBuild() {
@@ -48,10 +49,19 @@ void Builder::checkBuild() {
 
 	//Factory=(200, 100)
 	buildingType = BWAPI::UnitTypes::Terran_Factory;
-	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType) && barracksCount > barracksLimit) {
+	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType) && barracksCount > barracksLimit && factoriesCount < factoriesLimit) {
 		//Broodwar << "Create Factory << std::endl;
 		lastCheckedFactory = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
+		factoriesCount += 1;
+	}
+
+	//Machine Shop(50,50)
+	buildingType = BWAPI::UnitTypes::Terran_Machine_Shop;
+	if (Broodwar->self()->minerals() > 50 && Broodwar->self()->gas() > 50 && Broodwar->getFrameCount() > lastCheckedMachineShop + 400 && Broodwar->self()->isUnitAvailable(buildingType)) {
+		//Broodwar << "Create Factory << std::endl;
+		lastCheckedMachineShop = Broodwar->getFrameCount();
+		build(Broodwar->getBuildLocation(BWAPI::UnitTypes::Terran_Factory, homeBase->getTilePosition()), buildingType);
 	}
 }
 

@@ -28,7 +28,7 @@ void ExampleAIModule::onStart()
   workerManager = *new WorkerManager();
   producer = *new Producer();
   unitManager = *new UnitManager();
-  builder = *new Builder(&workerManager, homeBase);
+  builder = *new Builder(&workerManager, &producer, homeBase);
 
   //Add minerals to lists
   for (auto &u : Broodwar->getStaticMinerals()) {
