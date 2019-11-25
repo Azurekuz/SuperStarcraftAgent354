@@ -21,30 +21,40 @@ Producer::Producer() {
 	Producer::machineshopsList = {}; //for research
 	Producer::armoriesList = {}; //for research
 	Producer::otherList = {}; //other buildings not specified
+	Producer::researchOrder = {TechTypes::Tank_Siege_Mode}; //order queue for researching (add more)
 } 
 
 void Producer::trainTroops() {
 	trainSCVs();
 	trainFactoryTroops();
-	if (factoriesList.size() < 3) {
-		trainMarines();
-	}
+	trainMarines();
+
 }
 
 void Producer::trainMarines() {
-	for (BWAPI::Unit& x : barracksList) {
-		// Order the barracks to train more marines! But only when it is idle.
-		if (x->isIdle() && !x->train(UnitTypes::Terran_Marine))
-		{
-			// If that fails, draw the error at the location so that you can visibly see what went wrong!
-			// However, drawing the error once will only appear for a single frame
-			// so create an event that keeps it on the screen for some frames
-			Position pos = x->getPosition();
-			Error lastErr = Broodwar->getLastError();
-			Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
-				nullptr,    // condition
-				Broodwar->getLatencyFrames());  // frames to run
-		} // closure: failed to train idle unit
+	//train multiple marines at once if no factories
+	if (factoriesList.size() < 1) {
+		for (BWAPI::Unit& x : barracksList) {
+			// Order the barracks to train more marines! But only when it is idle.
+			if (x->isIdle() && !x->train(UnitTypes::Terran_Marine))
+			{
+				// If that fails, draw the error at the location so that you can visibly see what went wrong!
+				// However, drawing the error once will only appear for a single frame
+				// so create an event that keeps it on the screen for some frames
+				Position pos = x->getPosition();
+				Error lastErr = Broodwar->getLastError();
+				Broodwar->registerEvent([pos, lastErr](Game*) { Broodwar->drawTextMap(pos, "%c%s", Text::White, lastErr.c_str()); },   // action
+					nullptr,    // condition
+					Broodwar->getLatencyFrames());  // frames to run
+			} // closure: failed to train idle unit
+		}
+	}
+	else if (factoriesList.size() < 3) {
+		//only train one marine at once if there is a factory
+		BWAPI::Unit xx = barracksList.front();
+			if (xx->isIdle()) {
+				xx->train(UnitTypes::Terran_Marine);
+			}
 	}
 }
 
@@ -65,6 +75,7 @@ void Producer::trainSCVs() {
 }
 
 void Producer::trainFactoryTroops() {
+	int vultureCount = 0;
 	for (BWAPI::Unit& f : factoriesList) {
 		//If you can make both goliaths and siege tanks, alternate between the two
 		if (f->canTrain(UnitTypes::Terran_Goliath) && (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode) || f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode))) {
@@ -102,8 +113,9 @@ void Producer::trainFactoryTroops() {
 		}
 		//if cannot make siege tanks or goliaths but do have a basic factory
 		else {
-			if (f->isIdle()) {
+			if (f->isIdle() && vultureCount < 2) {
 				f->train(UnitTypes::Terran_Vulture);
+				vultureCount++;
 			}
 		}
 	}
@@ -113,8 +125,13 @@ void Producer::trainFactoryTroops() {
 void Producer::research()
 {
 	for (BWAPI::Unit& ms : machineshopsList) {
-		if (ms->canResearch(TechTypes::Tank_Siege_Mode)) {
-			ms->research(TechTypes::Tank_Siege_Mode);
+		if (ms->canResearch(researchOrder.front())) {
+			ms->research(researchOrder.front());
+			BWAPI::TechType tt = researchOrder.front();
+			researchOrder.pop_front();
+			if (isTest) {
+				BWAPI::Broodwar << "Removed from research queue: " + tt << std::endl;
+			}
 		}
 	}
 }

@@ -20,7 +20,7 @@ private:
 	int factoriesCount = 0;
 
 	//Initializng the limit number of facilities
-	int barracksLimit = 3;
+	int barracksLimit = 2;
 	int factoriesLimit = 3;
 
 public:
