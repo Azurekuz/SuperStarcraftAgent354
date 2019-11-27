@@ -6,7 +6,7 @@ using namespace BWAPI;
 using namespace Filter;
 /* Desmond Lee
 TODO: 
-
+-Build Machine Shop
 -Expand():
 check for more places to build stuff
 */
@@ -31,8 +31,8 @@ void Builder::checkBuild() {
 
 	//Barracks=150
 	buildingType = BWAPI::UnitTypes::Terran_Barracks;
-	if (Broodwar->self()->minerals() > 150 && Broodwar->getFrameCount() > lastCheckedBarracks + 400 && barracksCount <= barracksLimit) {
-		//Broodwar << "Create Barracks!" << std::endl;
+	if (Broodwar->self()->minerals() > 150 && Broodwar->getFrameCount() > lastCheckedBarracks + 400 && barracksCount < barracksLimit) {
+		Broodwar << "Create Barracks!" << std::endl;
 		lastCheckedBarracks = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 		barracksCount += 1;
@@ -42,15 +42,15 @@ void Builder::checkBuild() {
 	//Refinery=100
 	buildingType = BWAPI::UnitTypes::Terran_Refinery;
 	if (Broodwar->self()->minerals() > 250 && Broodwar->getFrameCount() > lastCheckedRefinery + 400) {
-		//Broodwar << "Create Refinery << std::endl;
+		Broodwar << "Create Refinery" << std::endl;
 		lastCheckedRefinery = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 
 	//Factory=(200, 100)
 	buildingType = BWAPI::UnitTypes::Terran_Factory;
-	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType) && barracksCount > barracksLimit && factoriesCount < factoriesLimit) {
-		//Broodwar << "Create Factory << std::endl;
+	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType) && barracksCount == barracksLimit && factoriesCount < factoriesLimit) {
+		Broodwar << "Create Factory" << std::endl;
 		lastCheckedFactory = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 		factoriesCount += 1;
@@ -59,11 +59,16 @@ void Builder::checkBuild() {
 	//Machine Shop(50,50)
 	buildingType = BWAPI::UnitTypes::Terran_Machine_Shop;
 	if (Broodwar->self()->minerals() > 50 && Broodwar->self()->gas() > 50 && Broodwar->getFrameCount() > lastCheckedMachineShop + 400 && Broodwar->self()->isUnitAvailable(buildingType)) {
-		//Broodwar << "Create Factory << std::endl;
+		Broodwar << "Create Machine Shop" << std::endl;
 		lastCheckedMachineShop = Broodwar->getFrameCount();
-		build(Broodwar->getBuildLocation(BWAPI::UnitTypes::Terran_Factory, homeBase->getTilePosition()), buildingType);
+		BWAPI::TilePosition machineShopTilePosition = Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition());
+		//for(int i=machineShopTilePosition.begin(); )
+		Broodwar << machineShopTilePosition << std::endl;
+		build(machineShopTilePosition, buildingType);
+
 	}
 }
+
 
 
 
