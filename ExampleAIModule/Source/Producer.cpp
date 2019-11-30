@@ -227,3 +227,4 @@ void Producer::removeBuilding(Unit unit) {
 		}
 	}
 }
+

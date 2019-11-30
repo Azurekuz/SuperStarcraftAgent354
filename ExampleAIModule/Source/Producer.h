@@ -7,7 +7,6 @@ class Producer
 private:
 	std::forward_list<BWAPI::Unit> commandcentersList;
 	std::forward_list<BWAPI::Unit> barracksList;
-	std::list<BWAPI::Unit> factoriesList;
 	std::forward_list<BWAPI::Unit> starportsLists;
 	std::forward_list<BWAPI::Unit> machineshopsList;
 	std::forward_list<BWAPI::Unit> armoriesList;
@@ -20,6 +19,7 @@ private:
 
 public:
 	Producer();
+	std::list<BWAPI::Unit> factoriesList;
 	void trainTroops();
 	void trainMarines();
 	void trainSCVs();

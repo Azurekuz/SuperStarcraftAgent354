@@ -14,6 +14,7 @@ private:
 	int lastCheckedRefinery = 0; 
 	int lastCheckedFactory = 0;
 	int lastCheckedMachineShop = 0;
+	std::list<BWAPI::Unit> factoriesList;
 
 	//Initializing the count number of facilities
 	int barracksCount = 0;
@@ -29,4 +30,5 @@ public:
 
 	void Builder::checkBuild();
 	void Builder::build(BWAPI::TilePosition targetBuildLocation, BWAPI::UnitType buildingType);
+
 };
