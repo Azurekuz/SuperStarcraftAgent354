@@ -8,6 +8,7 @@ void ExampleAIModule::onStart()
 {
   // Hello World!
   Broodwar << "SuperStarcraftBot354 is now activated!" << std::endl;
+  Broodwar << "It's never easy!" << std::endl;
 
   Broodwar << "Our Location:" << Position(Broodwar->self()->getStartLocation()) << std::endl;
   Broodwar << "Enemy Location?:" << Position(Broodwar->enemy()->getStartLocation()) << std::endl;

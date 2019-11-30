@@ -1,5 +1,17 @@
 #include "UnitManager.h"
 
+/**
+* Eugene Kuznetsov
+* Unit Manager Module
+*
+* Current Task:
+* - Pathfinding to Enemy Base
+*
+* To Do
+* - Organize units into different squads/sets
+* - Iterate through and command the sets rather than each individual unit.
+**/
+
 using namespace BWAPI;
 
 UnitManager::UnitManager() {
@@ -11,14 +23,65 @@ void UnitManager::commandUnits(){
 		if (u->isIdle() && allCombatUnits.size() < 15){
 			u->patrol(u->getRegion()->getClosestAccessibleRegion()->getCenter());
 		}
-		else if(allCombatUnits.size() >= 15){
-			BWAPI::Position enemyLoc = Position(Broodwar->enemy()->getStartLocation());
+		else if(allCombatUnits.size() >= 15 && !testPathFound){
+			/*BWAPI::Position enemyLoc = Position(Broodwar->enemy()->getStartLocation());
 			if(u ->hasPath(enemyLoc)){
 				u->attack(enemyLoc);
+			} This current code does not work*/
+
+			//marchToward(Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation)), Broodwar->getRegionAt(Position(Broodwar->enemy()->getStartLocation())));
+			//BWAPI::Broodwar << marchPath.size() << std::endl;
+		}
+	}
+}
+
+/*void UnitManager::marchToward(BWAPI::Region start, BWAPI::Region destination) {
+	std::priority_queue<regionNode, std::greater<regionNode>>* toVisit;
+	std::map < BWAPI::Region, regionNode> visitedFrom;
+	marchPath.clear();
+
+	toVisit->push(regionNode(start, start->getDistance(destination), 0));
+	BWAPI::Region currentRegion = start;
+	while (!toVisit->empty()) {
+		regionNode curNode = toVisit->top();
+		toVisit->pop();
+		BWAPI::Regionset neighbors = currentRegion->getNeighbors();
+		for (BWAPI::Region neighbor: neighbors) {
+			if(neighbor == destination ){
+				genShortPath(neighbor, start, visitedFrom);
+			} else if(visitedFrom.find(neighbor) != visitedFrom.end()){
+				toVisit->push(regionNode(neighbor, currentRegion->getDistance(destination), curNode.getSteps()));
+				visitedFrom[neighbor] = curNode;
 			}
 		}
 	}
 }
+
+void UnitManager::genShortPath(BWAPI::Region curPos, BWAPI::Region start, std::map<BWAPI::Region, regionNode> visitedFrom){
+	int curCost = -9999;
+	int newCost = -8888;
+	while (curPos != start) {
+		curCost = NULL;
+		marchPath.push_front(curPos);
+		BWAPI::Regionset neighbors = curPos->getNeighbors();
+		for (BWAPI::Region position : neighbors) {
+			if (visitedFrom.find(position) != visitedFrom.end()) {
+				regionNode newNode = visitedFrom[position];
+				newCost = newNode.getSteps();
+				if (curCost == -9999 || newCost < curCost) {
+					curCost = newCost;
+					curPos = newNode.getRegion();
+				}
+				else if (curCost == newCost) {
+					if (newNode.getRegion->getDistance(start) < curPos->getDistance(start)) {
+						curCost = newCost;
+						curPos = newNode.getRegion();
+					}
+				}
+			}
+		}
+	}
+}*/
 
 void UnitManager::retaliate(BWAPI::Position destroyed) {
 	for (BWAPI::Unit &u : allCombatUnits) {
