@@ -236,10 +236,12 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Barracks) {
 		producer.addBuilding(unit);
+		builder.barracksCount += 1;
 	
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Factory) {
 		producer.addBuilding(unit);
+		builder.factoriesCount += 1;
 
 	}
 
