@@ -1,10 +1,13 @@
 #pragma once
-#include <BWAPI.h>
 #include <forward_list>
-//#include "../SparCraft/source/SparCraft.h"
+#include <queue>
+#include <BWAPI.h>
+//#include "regionNode.h"
 
+//#include "../SparCraft/source/SparCraft.h"
 class UnitManager {
 	std::list<BWAPI::Unit> allCombatUnits;
+	std::list<BWAPI::Region> marchPath;
 
 	std::forward_list<BWAPI::Unit> cruiserUnits;
 	std::forward_list<BWAPI::Unit> dropshipUnits;
@@ -18,15 +21,16 @@ class UnitManager {
 	std::forward_list<BWAPI::Unit> valkyrieUnits;
 	std::forward_list<BWAPI::Unit> vultureUnits;
 
+	bool testPathFound = false;
 	bool isDebug = true;
 
 public:
 	UnitManager();
 	virtual void commandUnits();
+	//virtual void marchToward(BWAPI::Region start, BWAPI::Region destination);
+	//virtual void genShortPath(BWAPI::Region curPos, BWAPI::Region start, std::map<BWAPI::Region, regionNode> visitedFrom);
 	virtual void addUnit(BWAPI::Unit newUnit);
 	virtual bool sortUnit(BWAPI::Unit newUnit);
 	virtual bool removeUnit(BWAPI::Unit unit);
 	virtual void UnitManager::retaliate(BWAPI::Position destroyed);
-	//virtual bool isCombatUnit(BWAPI::Unit unit);
-
 };
