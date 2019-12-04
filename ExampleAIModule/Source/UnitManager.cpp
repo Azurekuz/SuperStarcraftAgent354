@@ -18,9 +18,9 @@ UnitManager::UnitManager() {
 	visitedRegions.push_front(Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation())));
 	currentDestination = visitedRegions.front();
 
-	Broodwar << Position((Broodwar->enemy()->getStartLocation())) << std::endl;
+	/*Broodwar << Position((Broodwar->enemy()->getStartLocation())) << std::endl;
 	genMarchPath(Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation())), Broodwar->getRegionAt(Position(1000, 1002)));
-	Broodwar << marchPath.size() << std::endl;
+	Broodwar << marchPath.size() << std::endl;*/
 
 	//Position((Broodwar->enemy()->getStartLocation())))
 }
