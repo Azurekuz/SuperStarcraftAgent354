@@ -12,7 +12,7 @@ private:
 	std::forward_list<BWAPI::Unit> armoriesList;
 	std::forward_list<BWAPI::Unit> otherList;
 	std::forward_list<BWAPI::TechType> researchOrder; //queue of order for researching
-	bool isTest = true;
+	bool isTest = false;
 	bool troopFlip = true; //determines whether goliath or seige tank gets made
 	
 	
