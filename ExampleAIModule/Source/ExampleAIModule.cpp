@@ -8,10 +8,7 @@ void ExampleAIModule::onStart()
 {
   // Hello World!
   Broodwar << "SuperStarcraftBot354 is now activated!" << std::endl;
-  Broodwar << "It's never easy!" << std::endl;
-
-  Broodwar << "Our Location:" << Position(Broodwar->self()->getStartLocation()) << std::endl;
-  Broodwar << "Enemy Location?:" << Position(Broodwar->enemy()->getStartLocation()) << std::endl;
+  Broodwar << Broodwar->enemy()->getStartLocation() << std::endl;
   Broodwar->setLocalSpeed(5);
 
   Broodwar->setFrameSkip(0);
@@ -191,6 +188,10 @@ void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 
 void ExampleAIModule::onUnitDiscover(BWAPI::Unit unit)
 {
+	std::list<BWAPI::Unit> theirUnits;
+	if (std::find(theirUnits.begin(), theirUnits.end(), unit) != theirUnits.end()) {
+		unitManager.allAttack(unit);
+	}
 }
 
 void ExampleAIModule::onUnitEvade(BWAPI::Unit unit)
@@ -315,7 +316,7 @@ void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 
 	
 	else if (unitManager.removeUnit(unit)) {
-		//Function will return true or false depending on if unit is combat unit.
+		//Function will return true or false depending on if the unit is a combat unit.
 	}
 }
 
