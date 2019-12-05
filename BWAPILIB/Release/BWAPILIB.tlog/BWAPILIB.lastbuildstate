@@ -1,2 +1,6 @@
 #TargetFrameworkVersion=v4.0:PlatformToolSet=v141:EnableManagedIncrementalBuild=false:VCToolArchitecture=Native32Bit:WindowsTargetPlatformVersion=8.1
-Release|Win32|C:\Starcraft AI\|
+<<<<<<< HEAD
+Release|Win32|C:\Users\cobio\SuperStarcraftAgent354\|
+=======
+Release|Win32|C:\Users\eugen\Documents\College\Fall_2019\COMP354\Term Project\SuperStarcraft354\SuperStarcraftAgent354\|
+>>>>>>> a463150ab7a5953cb09c4f4169dcacced3447b28

@@ -18,8 +18,8 @@ private:
 
 
 	//Initializng the limit number of facilities
-	int barracksLimit = 1;
-	int factoriesLimit = 1;
+	int barracksLimit = 10;
+	int factoriesLimit = 10;
 
 public:
 	//Initializing the count number of facilities

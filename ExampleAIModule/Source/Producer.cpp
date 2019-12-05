@@ -78,37 +78,22 @@ void Producer::trainFactoryTroops() {
 	int vultureCount = 0;
 	for (BWAPI::Unit& f : factoriesList) {
 		//If you can make both goliaths and siege tanks, alternate between the two
-		if (f->canTrain(UnitTypes::Terran_Goliath) && (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode) || f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode))) {
+		if (f->canTrain(UnitTypes::Terran_Goliath) && f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode)) {
 			if (f->isIdle()) {
 				if (troopFlip == true) {
 					f->train(UnitTypes::Terran_Goliath);
 					troopFlip = false;
 				}
 				else {
-					//make siege mode tanks if siege mode is researched
-					if (f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode)) {
-						f->train(UnitTypes::Terran_Siege_Tank_Siege_Mode);
-						troopFlip = true;
-					}
-					else {
-						//make normal siege tanks if not yet researched
-						f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
-						troopFlip = true;
-					} 
-				}
+					f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
+					troopFlip = true;
+				} 
 			}
 		}
-		//if can make seige tanks but not goliaths
-		else if (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode) || f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode)) {
+		//if cannot make goliaths but can make siege tanks
+		else if (f->canTrain(UnitTypes::Terran_Siege_Tank_Tank_Mode)) {
 			if (f->isIdle()) {
-				//make siege mode tanks if siege mode is researched
-				if (f->canTrain(UnitTypes::Terran_Siege_Tank_Siege_Mode)) {
-					f->train(UnitTypes::Terran_Siege_Tank_Siege_Mode);
-				} 
-				else {
-					//make normal siege tanks if not yet researched
-					f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
-				}
+				f->train(UnitTypes::Terran_Siege_Tank_Tank_Mode);
 			}
 		}
 		//if cannot make siege tanks or goliaths but do have a basic factory
@@ -124,13 +109,15 @@ void Producer::trainFactoryTroops() {
 
 void Producer::research()
 {
-	for (BWAPI::Unit& ms : machineshopsList) {
-		if (ms->canResearch(researchOrder.front())) {
-			ms->research(researchOrder.front());
-			BWAPI::TechType tt = researchOrder.front();
-			researchOrder.pop_front();
-			if (isTest) {
-				BWAPI::Broodwar << "Removed from research queue: " + tt << std::endl;
+	if (!researchOrder.empty()) {
+		BWAPI::TechType tt = researchOrder.front();
+		for (BWAPI::Unit& ms : machineshopsList) {
+			if (ms->canResearch(tt)) {
+				ms->research(tt);
+				researchOrder.pop_front();
+				if (isTest) {
+					BWAPI::Broodwar << "Started researching: " + tt << std::endl;
+				}
 			}
 		}
 	}

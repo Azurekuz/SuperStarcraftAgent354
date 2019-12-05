@@ -1,4 +1,7 @@
 #include "regionNode.h"
+regionNode::regionNode() {
+
+}
 
 regionNode::regionNode(BWAPI::Region region, int priority, int stepsNum) {
 	nodeRegion = region;
@@ -12,26 +15,45 @@ regionNode::regionNode(const regionNode &otherNode) {
 	steps = otherNode.steps;
 }
 
-bool regionNode::operator <(const regionNode &other) {
-	return (nodePriority < other.nodePriority);
+bool regionNode::operator<(const regionNode & b)
+{
+	return (nodePriority < b.nodePriority);
 }
 
-bool regionNode::operator >(const regionNode &other) {
-	return (nodePriority > other.nodePriority);
+
+
+bool regionNode::operator >(regionNode const &b) {
+	return (nodePriority > b.nodePriority);
 }
 
-bool regionNode::operator <=(const regionNode &other) {
-	return (nodePriority <= other.nodePriority);
+bool regionNode::operator <=(regionNode const &b) {
+	return (nodePriority <= b.nodePriority);
 }
 
-bool regionNode::operator >=(const regionNode &other) {
-	return (nodePriority >= other.nodePriority);
+bool regionNode::operator >=(regionNode const &b) {
+	return (nodePriority >= b.nodePriority);
 }
 
-void regionNode::operator =(const regionNode &other) {
+void regionNode::operator =(regionNode const &other) {
 	nodeRegion = other.nodeRegion;
 	nodePriority = other.nodePriority;
 	steps = other.steps;
+}
+
+bool regionNode::operator()(regionNode const &a, regionNode const &b) {
+	return a.nodePriority > b.nodePriority;
+}
+
+int regionNode::setPriority(int priority) {
+	return nodePriority;
+}
+
+int regionNode::setSteps(int steps) {
+	return steps;
+}
+
+BWAPI::Region regionNode::setRegion(BWAPI::Region region) {
+	return nodeRegion;
 }
 
 int regionNode::getPriority() {

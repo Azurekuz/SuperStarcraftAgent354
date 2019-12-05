@@ -1,3 +1,52 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Platforms\Win32\PlatformToolsets\v141_xp\Toolset.targets(39,5): warning MSB8051: Support for targeting Windows XP is deprecated and will not be present in future releases of Visual Studio. Please see https://go.microsoft.com/fwlink/?linkid=2023588 for more information.
-C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Platforms\Win32\PlatformToolsets\v141_xp\Toolset.targets(39,5): warning MSB8051: Support for targeting Windows XP is deprecated and will not be present in future releases of Visual Studio. Please see https://go.microsoft.com/fwlink/?linkid=2023588 for more information.
-  ExampleAIModule.vcxproj -> C:\Starcraft AI\Debug\ExampleAIModule.dll
+C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (ExampleAIModule.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Builder.cpp
+  Producer.cpp
+  regionNode.cpp
+  UnitManager.cpp
+  WorkerManager.cpp
+  Dll.cpp
+  ExampleAIModule.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstddef(127): error C2678: binary '>': no operator found which takes a left-hand operand of type 'const _Ty' (or there is no acceptable conversion)
+          with
+          [
+              _Ty=regionNode
+          ] (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\exampleaimodule\source\regionnode.h(13): note: could be 'bool regionNode::operator >(const regionNode &)' (compiling source file Source\UnitManager.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstddef(127): note: while trying to match the argument list '(const _Ty, const _Ty)'
+          with
+          [
+              _Ty=regionNode
+          ] (compiling source file Source\UnitManager.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xstddef(126): note: while compiling class template member function 'bool std::greater<regionNode>::operator ()(const _Ty &,const _Ty &) const'
+          with
+          [
+              _Ty=regionNode
+          ] (compiling source file Source\UnitManager.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\xutility(1110): note: see reference to function template instantiation 'bool std::greater<regionNode>::operator ()(const _Ty &,const _Ty &) const' being compiled
+          with
+          [
+              _Ty=regionNode
+          ] (compiling source file Source\UnitManager.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\type_traits(1049): note: see reference to class template instantiation 'std::greater<regionNode>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\queue(247): note: see reference to variable template 'const bool is_nothrow_default_constructible_v<std::greater<regionNode> >' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\exampleaimodule\source\unitmanager.cpp(46): note: see reference to class template instantiation 'std::priority_queue<regionNode,std::vector<regionNode,std::allocator<_Ty>>,std::greater<_Ty>>' being compiled
+          with
+          [
+              _Ty=regionNode
+          ]
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\unitcommandtype.h(75): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::UnitCommandType,45>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\techtype.h(74): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::TechType,46>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\playertype.h(40): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::PlayerType,12>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\gametype.h(48): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::GameType,33>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\explosiontype.h(54): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::ExplosionType,25>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\error.h(61): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::Error,27>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\damagetype.h(46): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::DamageType,6>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\color.h(14): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::Color,255>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\bullettype.h(73): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::BulletType,210>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\race.h(41): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::Race,8>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\order.h(221): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::Order,190>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\weapontype.h(148): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::WeaponType,131>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\upgradetype.h(88): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::UpgradeType,62>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\unitsizetype.h(41): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::UnitSizeType,5>' being compiled (compiling source file Source\UnitManager.cpp)
+  c:\users\eugen\documents\college\fall_2019\comp354\term project\superstarcraft354\superstarcraftagent354\include\bwapi\unittype.h(274): note: see reference to class template instantiation 'BWAPI::Type<BWAPI::UnitType,233>' being compiled (compiling source file Source\UnitManager.cpp)

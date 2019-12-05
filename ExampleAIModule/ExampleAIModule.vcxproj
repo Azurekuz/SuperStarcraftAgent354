@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="Source\Builder.cpp" />
     <ClCompile Include="Source\Producer.cpp" />
+    <ClCompile Include="Source\regionNode.cpp" />
     <ClCompile Include="Source\UnitManager.cpp" />
     <ClCompile Include="Source\WorkerManager.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
@@ -104,6 +105,7 @@
   <ItemGroup>
     <ClInclude Include="Source\Builder.h" />
     <ClInclude Include="Source\Producer.h" />
+    <ClInclude Include="Source\regionNode.h" />
     <ClInclude Include="Source\UnitManager.h" />
     <ClInclude Include="Source\WorkerManager.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
