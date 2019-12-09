@@ -25,7 +25,7 @@ class UnitManager {
 	std::list<BWAPI::Region> visitedRegions;
 	std::queue<regionNode> toVisit;
 	BWAPI::Region currentDestination;
-	bool isDebug = false;
+	bool isDebug = true;
 
 public:
 	UnitManager();
