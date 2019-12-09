@@ -23,7 +23,7 @@ class UnitManager {
 	std::forward_list<BWAPI::Unit> vultureUnits;
 
 	std::list<BWAPI::Region> visitedRegions;
-	std::queue<BWAPI::Region> toVisit;
+	std::queue<regionNode> toVisit;
 	BWAPI::Region currentDestination;
 	bool isDebug = false;
 
@@ -43,4 +43,5 @@ public:
 	virtual BWAPI::Region UnitManager::chooseRegion(BWAPI::Position position);
 	virtual void UnitManager::genMarchPath(BWAPI::Region start, BWAPI::Region destination);
 	virtual void UnitManager::genShortPath(BWAPI::Region curPos, BWAPI::Region start, std::map<BWAPI::Region, regionNode> visitedFrom);
+	void UnitManager::navigateUnit(BWAPI::Unit unit);
 };

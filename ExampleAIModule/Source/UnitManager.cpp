@@ -18,9 +18,9 @@ UnitManager::UnitManager() {
 	visitedRegions.push_front(Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation())));
 	currentDestination = visitedRegions.front();
 
-	/*Broodwar << Position((Broodwar->enemy()->getStartLocation())) << std::endl;
+	Broodwar << Position((Broodwar->enemy()->getStartLocation())) << std::endl;
 	genMarchPath(Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation())), Broodwar->getRegionAt(Position(1000, 1002)));
-	Broodwar << marchPath.size() << std::endl;*/
+	Broodwar << marchPath.size() << std::endl;
 
 	//Position((Broodwar->enemy()->getStartLocation())))
 }
@@ -34,6 +34,7 @@ void UnitManager::commandUnits() {
 				u->patrol(u->getRegion()->getClosestAccessibleRegion()->getCenter());
 			}
 			else {
+				navigateUnit(u);
 				/*if (std::find(visitedRegions.begin(), visitedRegions.end(), currentDestination) == visitedRegions.end()) {
 					while (!toVisit.empty() || std::find(visitedRegions.begin(), visitedRegions.end(), currentDestination) == visitedRegions.end()) {
 						if (toVisit.front()->isAccessible()) {
@@ -50,23 +51,27 @@ void UnitManager::commandUnits() {
 	}
 }
 
+void UnitManager::navigateUnit(BWAPI::Unit unit) {
+	//unit->move(toVisit.front()->getCenter());
+}
+
 void UnitManager::genMarchPath(BWAPI::Region start, BWAPI::Region destination) {
-	std::priority_queue<regionNode>* toVisit;
 	std::map <BWAPI::Region, regionNode> visitedFrom;
 	marchPath.clear();
 
-	toVisit->push(regionNode(start, start->getDistance(destination), 0));
+	toVisit.push(regionNode(start, start->getDistance(destination), 0));
 	BWAPI::Region currentRegion = start;
-	while (!(toVisit->empty())) {
-		regionNode curNode = toVisit->top();
-		toVisit->pop();
+	while (!(toVisit.empty())) {
+		regionNode curNode = toVisit.front();
+		toVisit.pop();
 		BWAPI::Regionset neighbors = currentRegion->getNeighbors();
 		for (BWAPI::Region neighbor : neighbors) {
 			if (neighbor == destination) {
+				Broodwar << "Destination Found" << std::endl;
 				genShortPath(neighbor, start, visitedFrom);
 			}
 			else if (visitedFrom.find(neighbor) == visitedFrom.end()) {
-				toVisit->push(regionNode(neighbor, currentRegion->getDistance(destination), curNode.getSteps()+1));
+				toVisit.push(regionNode(neighbor, currentRegion->getDistance(destination), curNode.getSteps()+1));
 				visitedFrom[neighbor] = curNode;
 			}
 		}
@@ -74,7 +79,7 @@ void UnitManager::genMarchPath(BWAPI::Region start, BWAPI::Region destination) {
 }
 
 bool operator<(const regionNode &a, const regionNode &b) {
-	return a < b;
+	return a.nodePriority < b.nodePriority;
 }
 
 void UnitManager::genShortPath(BWAPI::Region curPos, BWAPI::Region start, std::map<BWAPI::Region, regionNode> visitedFrom) {
@@ -175,7 +180,7 @@ void UnitManager::searchRegions() {
 	for(const BWAPI::Region &vr : visitedRegions){
 		for (const BWAPI::Region &r: vr->getNeighbors()) {
 			if (std::find(visitedRegions.begin(), visitedRegions.end(), r) == visitedRegions.end()) {
-				toVisit.push(r);
+				//toVisit.push(r);
 			}
 		}
 	}
