@@ -18,18 +18,19 @@ Producer::Producer() {
 	Producer::barracksList = {};
 	Producer::factoriesList = {};
 	Producer::starportsLists = {};
-	Producer::machineshopsList = {}; //for research
-	Producer::armoriesList = {}; //for research
+	//Producer::machineshopsList = {}; //for research
+	//Producer::armoriesList = {}; //for research
+	Producer::armoriesAndMS = {}; //machine shops and armories list
 	Producer::otherList = {}; //other buildings not specified
-	Producer::researchOrder = {TechTypes::Tank_Siege_Mode}; //order queue for researching (add more)
-} 
+	//Producer::upgradeResearchOrder = {UpgradeTypes::Charon_Boosters, UpgradeTypes::Terran_Vehicle_Weapons, UpgradeTypes::Terran_Vehicle_Plating}; //order queue for upgrade type researching
+	//Producer::techResearchOrder = { TechTypes::Tank_Siege_Mode }; //order queue for tech type researching
+}
 
 void Producer::trainTroops() {
 	trainSCVs();
 	trainFactoryTroops();
 	trainMarines();
-
-}
+	}
 
 void Producer::trainMarines() {
 	//train multiple marines at once if no factories
@@ -49,7 +50,7 @@ void Producer::trainMarines() {
 			} // closure: failed to train idle unit
 		}
 	}
-	else if (factoriesList.size() < 3) {
+	else if (factoriesList.size() > 0) {
 		//only train one marine at once if there is a factory
 		BWAPI::Unit xx = barracksList.front();
 			if (xx->isIdle()) {
@@ -106,21 +107,48 @@ void Producer::trainFactoryTroops() {
 	}
 }
 
-
-void Producer::research()
-{
-	if (!researchOrder.empty()) {
-		BWAPI::TechType tt = researchOrder.front();
+//hard-coded for now for functionality
+void Producer::research() {
+	for (BWAPI::Unit& rs : armoriesAndMS) {
+		if (rs->isIdle()) {
+			if (rs->canResearch(TechTypes::Tank_Siege_Mode)) {
+				rs->research(TechTypes::Tank_Siege_Mode);
+				if (isTest) {
+					BWAPI::Broodwar << "Started researching: Tank Siege Mode " << std::endl;
+				}
+			}
+			else if (rs->canUpgrade(UpgradeTypes::Charon_Boosters)) {
+				rs->upgrade(UpgradeTypes::Charon_Boosters);
+				if (isTest) {
+					BWAPI::Broodwar << "Started upgrading: Charon Boosters " << std::endl;
+				}
+			}
+			else if (rs->canUpgrade(UpgradeTypes::Terran_Vehicle_Weapons)) {
+				rs->upgrade(UpgradeTypes::Terran_Vehicle_Weapons);
+				if (isTest) {
+					BWAPI::Broodwar << "Started upgrading: Vehicle Weapons " << std::endl;
+				}
+			}
+			else if (rs->canUpgrade(UpgradeTypes::Terran_Vehicle_Plating)) {
+				rs->upgrade(UpgradeTypes::Terran_Vehicle_Plating);
+				if (isTest) {
+					BWAPI::Broodwar << "Started upgrading: Vehicle Plating " << std::endl;
+				}
+			}
+		}
+	}
+	/**if (!techResearchOrder.empty()) {
+		BWAPI::TechType tt = techResearchOrder.front();
 		for (BWAPI::Unit& ms : machineshopsList) {
 			if (ms->canResearch(tt)) {
 				ms->research(tt);
-				researchOrder.pop_front();
+				techResearchOrder.pop_front();
 				if (isTest) {
 					BWAPI::Broodwar << "Started researching: " + tt << std::endl;
 				}
 			}
 		}
-	}
+	} **/
 }
 
 void Producer::addBuilding(Unit unit) {
@@ -149,13 +177,15 @@ void Producer::addBuilding(Unit unit) {
 		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
-		Producer::machineshopsList.push_front(unit);
+		//Producer::machineshopsList.push_front(unit);
+		Producer::armoriesAndMS.push_front(unit);
 		if (isTest) {
 			BWAPI::Broodwar << "Added Machine Shop to list" << std::endl;
 		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
-		Producer::armoriesList.push_front(unit);
+		//Producer::armoriesList.push_front(unit);
+		Producer::armoriesAndMS.push_front(unit);
 		if (isTest) {
 			BWAPI::Broodwar << "Added Armory to list" << std::endl;
 		}
@@ -196,17 +226,19 @@ void Producer::removeBuilding(Unit unit) {
 		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Machine_Shop) {
-		Producer::machineshopsList.remove(unit);
+		//Producer::machineshopsList.remove(unit);
+		Producer::armoriesAndMS.remove(unit);
 		if (isTest) {
 			BWAPI::Broodwar << "Removed Machine Shop from list" << std::endl;
 		}
 	}
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
-		Producer::armoriesList.remove(unit);
+		//Producer::armoriesList.remove(unit);
+		Producer::armoriesAndMS.remove(unit);
 		if (isTest) {
 			BWAPI::Broodwar << "Removed Armory from list" << std::endl;
 		}
-	}
+	} 
 	else {
 		Producer::otherList.remove(unit);
 		if (isTest) {
