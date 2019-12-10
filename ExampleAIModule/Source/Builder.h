@@ -14,17 +14,20 @@ private:
 	int lastCheckedRefinery = 0; 
 	int lastCheckedFactory = 0;
 	int lastCheckedMachineShop = 0;
+	int lastCheckedArmory = 0;
 	std::list<BWAPI::Unit> factoriesList;
 
 
 	//Initializng the limit number of facilities
-	int barracksLimit = 10;
-	int factoriesLimit = 10;
+	int barracksLimit = 5;
+	int factoriesLimit = 5;
+	int armoryLimit = 2;
 
 public:
 	//Initializing the count number of facilities
 	int barracksCount = 0;
 	int factoriesCount = 0;
+	int armoryCount = 0;
 
 	Builder();
 	Builder(WorkerManager* wm, Producer* pdcr, BWAPI::Unit hb);

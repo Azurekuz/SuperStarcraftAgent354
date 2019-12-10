@@ -33,6 +33,8 @@ void Builder::checkBuild() {
 	buildingType = BWAPI::UnitTypes::Terran_Barracks;
 	if (Broodwar->self()->minerals() > 150 && Broodwar->getFrameCount() > lastCheckedBarracks + 400 && barracksCount < barracksLimit) {
 		//Broodwar << "Create Barracks!" << std::endl;
+		BWAPI::bwout << "Barracks Count:" << std::endl;
+		BWAPI::bwout << barracksCount << std::endl;
 		lastCheckedBarracks = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
@@ -50,22 +52,35 @@ void Builder::checkBuild() {
 	buildingType = BWAPI::UnitTypes::Terran_Factory;
 	if (Broodwar->self()->minerals() > 200 && Broodwar->self()->gas() > 100 && Broodwar->getFrameCount() > lastCheckedFactory + 400 && Broodwar->self()->isUnitAvailable(buildingType) && barracksCount >= barracksLimit && factoriesCount < factoriesLimit) {
 		//Broodwar << "Create Factory" << std::endl;
+		BWAPI::bwout << "Factories Count:" << std::endl;
+		BWAPI::bwout << factoriesCount << std::endl;
 		lastCheckedFactory = Broodwar->getFrameCount();
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 
-	factoriesList = producer->factoriesList;
-	Unit factory = factoriesList.front();
-	//Machine Shop(50,50)
-	buildingType = BWAPI::UnitTypes::Terran_Machine_Shop;
-	if (Broodwar->self()->minerals() > 50 && Broodwar->self()->gas() > 50 && Broodwar->getFrameCount() > lastCheckedMachineShop + 400 && Broodwar->self()->isUnitAvailable(buildingType) && factory != nullptr && factory->canBuildAddon(buildingType)) {
-		//Broodwar << "Create Machine Shop" << std::endl;
-		lastCheckedMachineShop = Broodwar->getFrameCount();
-		factory->buildAddon(BWAPI::UnitTypes::Terran_Machine_Shop);
-		
-		
-		
+	buildingType = BWAPI::UnitTypes::Terran_Armory;
+	if (Broodwar->self()->minerals() > 100 && Broodwar->self()->gas() > 50 && Broodwar->getFrameCount() > lastCheckedArmory + 400 && Broodwar->self()->isUnitAvailable(buildingType) && barracksCount >= barracksLimit && factoriesCount >= factoriesLimit && armoryCount < armoryLimit) {
+		//Broodwar << "Create Armory" << std::endl;
+		lastCheckedArmory = Broodwar->getFrameCount();
+		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
+	}
 
+	if (factoriesList.size()>0) {
+		factoriesList = producer->factoriesList;
+		Unit factory = factoriesList.front();
+
+		//Machine Shop(50,50)
+		buildingType = BWAPI::UnitTypes::Terran_Machine_Shop;
+		if (Broodwar->self()->minerals() > 50 && Broodwar->self()->gas() > 50 && Broodwar->getFrameCount() > lastCheckedMachineShop + 400 && Broodwar->self()->isUnitAvailable(buildingType) && factory != nullptr && factory->canBuildAddon(buildingType)) {
+			//Broodwar << "Create Machine Shop" << std::endl;
+			lastCheckedMachineShop = Broodwar->getFrameCount();
+			factory->buildAddon(BWAPI::UnitTypes::Terran_Machine_Shop);
+
+
+
+
+
+		}
 	}
 }
 

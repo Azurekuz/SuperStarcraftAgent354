@@ -259,6 +259,7 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 
 	else if (unit->getType() == BWAPI::UnitTypes::Terran_Armory) {
 		producer.addBuilding(unit);
+		builder.armoryCount += 1;
 	
 	}
 	else if (unitManager.sortUnit(unit)) {
