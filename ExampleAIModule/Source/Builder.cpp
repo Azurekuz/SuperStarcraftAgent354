@@ -65,8 +65,8 @@ void Builder::checkBuild() {
 		build(Broodwar->getBuildLocation(buildingType, homeBase->getTilePosition()), buildingType);
 	}
 
+	factoriesList = producer->factoriesList;
 	if (factoriesList.size()>0) {
-		factoriesList = producer->factoriesList;
 		Unit factory = factoriesList.front();
 
 		//Machine Shop(50,50)
