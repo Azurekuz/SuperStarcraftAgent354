@@ -30,6 +30,10 @@ UnitManager::UnitManager() {
 
 void UnitManager::commandUnits() {
 	for (BWAPI::Unit &u : allCombatUnits) {
+		if (isDebug) {
+			Broodwar->drawLineMap(u->getPosition(), curNode.getRegion()->getCenter(), Colors::Grey);
+			Broodwar->drawBoxMap(Position(u->getRegion()->getBoundsLeft(), u->getRegion()->getBoundsTop()), Position(u->getRegion()->getBoundsRight(), u->getRegion()->getBoundsBottom()), Colors::Orange);
+		}
 		nowTime = clock();
 		/*if (u->isIdle()) {
 			u->patrol(u->getRegion()->getClosestAccessibleRegion()->getCenter());
@@ -43,7 +47,7 @@ void UnitManager::commandUnits() {
 
 void UnitManager::navigateUnit(BWAPI::Unit unit) {
 	if(unit->getRegion()!=curNode.getRegion()){
-		unit->patrol(curNode.getRegion()->getCenter());
+		unit->move(curNode.getRegion()->getCenter());
 	}
 	else if (unit->getRegion() == curNode.getRegion()) {
 		checkUnexplored(curNode.getRegion());
@@ -54,7 +58,9 @@ void UnitManager::navigateUnit(BWAPI::Unit unit) {
 		nowTime = clock();
 		lastTime = nowTime;
 	}
-	if(difftime(nowTime, lastTime) > 1500 || !unit->isMoving() || !curNode.getRegion()->isAccessible() || !unit->hasPath(curNode.getRegion()->getCenter())){
+	//(difftime(nowTime, lastTime) > 1500 && (!unit->isMoving())) || 
+	if(!curNode.getRegion()->isAccessible() || !unit->hasPath(curNode.getRegion()->getCenter())){
+		checkUnexplored(curNode.getRegion());
 		if (!toVisit.empty()) {
 			curNode = toVisit.top();
 			toVisit.pop();
