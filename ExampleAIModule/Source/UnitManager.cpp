@@ -15,54 +15,73 @@
 using namespace BWAPI;
 
 UnitManager::UnitManager() {
-	visitedRegions.push_front(Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation())));
-	currentDestination = visitedRegions.front();
-
-	Broodwar << Position((Broodwar->enemy()->getStartLocation())) << std::endl;
-	genMarchPath(Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation())), Broodwar->getRegionAt(Position(1000, 1002)));
-	Broodwar << marchPath.size() << std::endl;
-
-	//Position((Broodwar->enemy()->getStartLocation())))
+	startRegion = Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation()));
+	enemyRegion = Broodwar->getRegionAt(Position(Broodwar->enemy()->getStartLocation()));
+	
+	visitedFrom[startRegion] = regionNode(startRegion, (startRegion->getDistance(startRegion)), 0);
+	checkUnexplored(startRegion);
+	if (!toVisit.empty()) {
+		curNode = toVisit.top();
+		toVisit.pop();
+	}
+	nowTime = clock();
+	lastTime = nowTime;
 }
 
 void UnitManager::commandUnits() {
-	searchRegions();
 	for (BWAPI::Unit &u : allCombatUnits) {
-		checkUnitRegion(u);
-		if (u->isIdle()) {
-			if(allCombatUnits.size() < 5){
-				u->patrol(u->getRegion()->getClosestAccessibleRegion()->getCenter());
-			}
-			else {
-				navigateUnit(u);
-				/*if (std::find(visitedRegions.begin(), visitedRegions.end(), currentDestination) == visitedRegions.end()) {
-					while (!toVisit.empty() || std::find(visitedRegions.begin(), visitedRegions.end(), currentDestination) == visitedRegions.end()) {
-						if (toVisit.front()->isAccessible()) {
-							currentDestination = toVisit.front();
-						}
-						toVisit.pop();
-					}
-				}*/
-				//BWAPI::Position destination = chooseRegion(allUnitSet.getPosition())->getCenter() + Position((std::rand() * 32) - 16, (std::rand() * 32) - 16);
-				//marchToward(destination);
-			}
+		nowTime = clock();
+		/*if (u->isIdle()) {
+			u->patrol(u->getRegion()->getClosestAccessibleRegion()->getCenter());
 		}
-		
+		else {
+			navigateUnit(u);
+		}*/
+		navigateUnit(u);
 	}
 }
 
 void UnitManager::navigateUnit(BWAPI::Unit unit) {
-	//unit->move(toVisit.front()->getCenter());
+	if(unit->getRegion()!=curNode.getRegion()){
+		unit->patrol(curNode.getRegion()->getCenter());
+	}
+	else if (unit->getRegion() == curNode.getRegion()) {
+		checkUnexplored(curNode.getRegion());
+		if (!toVisit.empty()) {
+			curNode = toVisit.top();
+			toVisit.pop();
+		}
+		nowTime = clock();
+		lastTime = nowTime;
+	}
+	if(difftime(nowTime, lastTime) > 1500 || !unit->isMoving() || !curNode.getRegion()->isAccessible() || !unit->hasPath(curNode.getRegion()->getCenter())){
+		if (!toVisit.empty()) {
+			curNode = toVisit.top();
+			toVisit.pop();
+		}
+		nowTime = clock();
+		lastTime = nowTime;
+	}
+	//Broodwar << difftime(nowTime, lastTime) << std::endl;
+}
+
+void UnitManager::checkUnexplored(BWAPI::Region curRegion) {
+	for (const BWAPI::Region &neighbor : curRegion->getNeighbors()) {
+		if (visitedFrom.find(neighbor) == visitedFrom.end()) {
+			toVisit.push(regionNode(neighbor, neighbor->getDistance(startRegion), visitedFrom[curRegion].getSteps()+1));
+		}
+	}
 }
 
 void UnitManager::genMarchPath(BWAPI::Region start, BWAPI::Region destination) {
-	std::map <BWAPI::Region, regionNode> visitedFrom;
-	marchPath.clear();
+	//marchPath.clear();
+	//std::map <BWAPI::Region, regionNode> visitedFrom;
+	//std::queue<regionNode> toVisit;
 
 	toVisit.push(regionNode(start, start->getDistance(destination), 0));
 	BWAPI::Region currentRegion = start;
 	while (!(toVisit.empty())) {
-		regionNode curNode = toVisit.front();
+		regionNode curNode = toVisit.top();
 		toVisit.pop();
 		BWAPI::Regionset neighbors = currentRegion->getNeighbors();
 		for (BWAPI::Region neighbor : neighbors) {
@@ -80,6 +99,10 @@ void UnitManager::genMarchPath(BWAPI::Region start, BWAPI::Region destination) {
 
 bool operator<(const regionNode &a, const regionNode &b) {
 	return a.nodePriority < b.nodePriority;
+}
+
+bool operator>(const regionNode &a, const regionNode &b) {
+	return a.nodePriority > b.nodePriority;
 }
 
 void UnitManager::genShortPath(BWAPI::Region curPos, BWAPI::Region start, std::map<BWAPI::Region, regionNode> visitedFrom) {
@@ -108,57 +131,6 @@ void UnitManager::genShortPath(BWAPI::Region curPos, BWAPI::Region start, std::m
 	}
 }
 
-BWAPI::Region UnitManager::chooseRegion(BWAPI::Position position) {
-	BWAPI::Regionset neighbors = Broodwar->getRegionAt(allUnitSet.getPosition())->getNeighbors();
-	BWAPI::Region currentRegion;
-	int regionVal = -999;
-	for (const BWAPI::Region &r: neighbors) {
-		int currentVal = 0;
-		if (regionVal == -999) {
-			currentRegion = r;
-		}
-		
-		if (std::find(visitedRegions.begin(), visitedRegions.end(), r) == visitedRegions.end()) {
-			currentVal = currentVal + 2;
-		}
-		else {
-			currentVal = currentVal - 2;
-		}
-
-		/*if (!r->isAccessible()) {
-			currentVal = currentVal - 1;
-		}*/
-
-		if (regionVal < currentVal) {
-			currentRegion = r;
-			regionVal = currentVal;
-		}
-		else if (regionVal == currentVal) {
-			int roll = std::rand() * 1;
-			if (roll == 0) {
-				currentRegion = r;
-				regionVal = currentVal;
-			}
-		}
-	}
-	return currentRegion;
-}
-
-void UnitManager::checkUnitRegion(BWAPI::Unit unit) {
-	if (std::find(visitedRegions.begin(), visitedRegions.end(), unit->getRegion()) == visitedRegions.end()) {
-		visitedRegions.push_front(unit->getRegion());
-		Broodwar << "New Region added!" << std::endl;
-	}
-}
-
-void UnitManager::checkBaseLocations() {
-	for (const BWAPI::Player &p :Broodwar->getPlayers()) {
-		if (p->isEnemy(Broodwar->self()) && std::find(visitedRegions.begin(), visitedRegions.end(), Broodwar->getRegionAt(Position(p->getStartLocation()))) != visitedRegions.end()){
-			marchToward(Position(p->getStartLocation()));
-		}
-	}
-}
-
 void UnitManager::marchToward(BWAPI::Position destination) {
 	for (BWAPI::Unit &u : allCombatUnits) {
 		if (u->isIdle() || u->isPatrolling() || !(u->isMoving())) {
@@ -168,22 +140,7 @@ void UnitManager::marchToward(BWAPI::Position destination) {
 }
 
 void UnitManager::allAttack(BWAPI::Unit target) {
-	/*for (BWAPI::Unit &u : allCombatUnits) {
-		if (u->isIdle() || u->isPatrolling()) {
-			u->attack(target);
-		}
-	}*/
 	allUnitSet.attack(target);
-}
-
-void UnitManager::searchRegions() {
-	for(const BWAPI::Region &vr : visitedRegions){
-		for (const BWAPI::Region &r: vr->getNeighbors()) {
-			if (std::find(visitedRegions.begin(), visitedRegions.end(), r) == visitedRegions.end()) {
-				//toVisit.push(r);
-			}
-		}
-	}
 }
 
 void UnitManager::retaliate(BWAPI::Position destroyed) {

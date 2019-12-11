@@ -21,5 +21,5 @@ public:
 	virtual BWAPI::Region regionNode::setRegion(BWAPI::Region region);
 	virtual int regionNode::getPriority();
 	virtual int regionNode::getSteps();
-	virtual  BWAPI::Region regionNode::getRegion();
+	virtual const BWAPI::Region regionNode::getRegion();
 };

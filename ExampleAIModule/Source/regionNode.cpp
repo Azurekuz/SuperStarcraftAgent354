@@ -64,6 +64,6 @@ int regionNode::getSteps() {
 	return steps;
 }
 
-BWAPI::Region regionNode::getRegion() {
+const BWAPI::Region regionNode::getRegion() {
 	return nodeRegion;
 }
