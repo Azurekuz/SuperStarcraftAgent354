@@ -50,7 +50,7 @@ void Producer::trainMarines() {
 			} // closure: failed to train idle unit
 		}
 	}
-	else if (factoriesList.size() > 0) {
+	else if (factoriesList.size() > 0 && !barracksList.empty()){
 		//only train one marine at once if there is a factory
 		BWAPI::Unit xx = barracksList.front();
 			if (xx->isIdle()) {

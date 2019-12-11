@@ -145,7 +145,7 @@ void UnitManager::allAttack(BWAPI::Unit target) {
 
 void UnitManager::retaliate(BWAPI::Position destroyed) {
 	for (BWAPI::Unit &u : allCombatUnits) {
-		u->patrol(destroyed);
+		u->attack(destroyed);
 	}
 }
 
