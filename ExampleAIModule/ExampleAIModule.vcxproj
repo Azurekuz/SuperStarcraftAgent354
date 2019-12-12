@@ -101,6 +101,7 @@
     <ClCompile Include="Source\WorkerManager.cpp" />
     <ClCompile Include="Source\Dll.cpp" />
     <ClCompile Include="Source\ExampleAIModule.cpp" />
+    <ClCompile Include="Source\Task.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Builder.h" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Source\UnitManager.h" />
     <ClInclude Include="Source\WorkerManager.h" />
     <ClInclude Include="Source\ExampleAIModule.h" />
+    <ClInclude Include="Source\Task.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BWAPILIB\BWAPILIB.vcxproj">

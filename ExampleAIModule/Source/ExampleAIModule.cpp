@@ -12,7 +12,7 @@ void ExampleAIModule::onStart()
   Broodwar->setLocalSpeed(5);
 
   Broodwar->setFrameSkip(0);
-
+  
     //Find starting CC
   Unit homeBase;
 
@@ -264,6 +264,7 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	}
 	else if (unitManager.sortUnit(unit)) {
 		unitManager.addUnit(unit);
+		unitManager.squadify(unit);
 	}
 }
 

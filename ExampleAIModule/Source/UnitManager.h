@@ -3,11 +3,15 @@
 #include <queue>
 #include <BWAPI.h>
 #include "regionNode.h"
+#include "Task.h"
 #include <time.h>
 
 class UnitManager {
 	std::list<BWAPI::Unit> allCombatUnits;
 	BWAPI::Unitset allUnitSet;
+	std::list<BWAPI::Unitset> squads;
+
+	std::priority_queue<Task, std::vector<Task>, std::greater<Task>> agentPriority;
 
 	std::forward_list<BWAPI::Unit> cruiserUnits;
 	std::forward_list<BWAPI::Unit> dropshipUnits;
@@ -31,6 +35,7 @@ class UnitManager {
 	clock_t lastTime = nowTime;
 	regionNode curNode;
 	bool isDebug = true;
+	int numSquads = 2;
 
 public:
 	UnitManager();
@@ -46,4 +51,5 @@ public:
 	virtual void UnitManager::genShortPath(BWAPI::Region curPos, BWAPI::Region start, std::map<BWAPI::Region, regionNode> visitedFrom);
 	void UnitManager::navigateUnit(BWAPI::Unit unit);
 	virtual void UnitManager::checkUnexplored(BWAPI::Region curRegion);
+	virtual void UnitManager::squadify(BWAPI::Unit unit);
 };
