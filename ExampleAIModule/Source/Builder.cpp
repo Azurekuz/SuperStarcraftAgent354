@@ -83,7 +83,13 @@ void Builder::checkBuild() {
 		}
 	}
 }
-
+/*
+void Builder::repair(TilePosition buildingLocation, Unit buildingType) {
+	Unit builder = workerManager->getBuilder(buildingLocation);
+	if (buildingLocation && builder != nullptr && builder->exists()) {
+		builder->repair(buildingType);
+	}
+}*/
 
 
 
@@ -106,3 +112,6 @@ void Builder::build(TilePosition targetBuildLocation, UnitType buildingType){
 	}
 }
 
+void Builder::expand() {
+
+}

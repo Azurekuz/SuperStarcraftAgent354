@@ -35,6 +35,8 @@ public:
 	Builder(WorkerManager* wm, Producer* pdcr, BWAPI::Unit hb);
 
 	void Builder::checkBuild();
+	//void Builder::repair(BWAPI::TilePosition buildingLocation, Unit buildingType);
 	void Builder::build(BWAPI::TilePosition targetBuildLocation, BWAPI::UnitType buildingType);
+	void Builder::expand();
 
 };
