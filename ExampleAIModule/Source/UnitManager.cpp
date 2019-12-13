@@ -15,14 +15,18 @@
 using namespace BWAPI;
 
 UnitManager::UnitManager() {
+
+}
+
+UnitManager::UnitManager(WorkerManager* wm) {
+	workerManager = wm;
+	curTarget = Position(Broodwar->self()->getStartLocation());
 	startRegion = Broodwar->getRegionAt(Position(Broodwar->self()->getStartLocation()));
 	enemyRegion = Broodwar->getRegionAt(Position(Broodwar->enemy()->getStartLocation()));
 
 	for (int i = 0; i < numSquads; i++) {
 		squads.push_front(BWAPI::Unitset());
 	}
-
-	Broodwar << squads.size() << std::endl;
 
 	visitedFrom[startRegion] = regionNode(startRegion, (startRegion->getDistance(startRegion)), 0);
 	checkUnexplored(startRegion);
@@ -35,30 +39,60 @@ UnitManager::UnitManager() {
 }
 
 void UnitManager::commandUnits() {
+	if(scouts.size() < 1){
+		BWAPI::Unit newScout = workerManager->getBuilder(Broodwar->self()->getStartLocation());
+		if (newScout != nullptr) {
+			scouts.insert(newScout);
+		}
+	}
 	int squadNum = 0;
-	for (BWAPI::Unitset curSquad : squads) {
+	for (BWAPI::Unit u : scouts) {
+		navigateUnit(u);
+	}
+	/*for (BWAPI::Unitset curSquad : squads) {
 		Broodwar->drawTextScreen(50, 0 + (squadNum * 15), "SQUAD: %i", curSquad.size(), Colors::Yellow);
 		squadNum += 1;
-	}
+	}*/
 	for (BWAPI::Unit &u : allCombatUnits) {
 		if (isDebug) {
-			Broodwar->drawLineMap(u->getPosition(), curNode.getRegion()->getCenter(), Colors::Grey);
+			Broodwar->drawLineMap(u->getPosition(), u->getTarget()->getPosition(), Colors::Grey);
 			Broodwar->drawBoxMap(Position(u->getRegion()->getBoundsLeft(), u->getRegion()->getBoundsTop()), Position(u->getRegion()->getBoundsRight(), u->getRegion()->getBoundsBottom()), Colors::Orange);
 		}
 		nowTime = clock();
-		if (allUnitSet.size() < 15) {
+		if (u->isIdle() && allUnitSet.size() < 15) {
 			u->patrol(startRegion->getClosestAccessibleRegion()->getCenter());
+			Broodwar->drawTextScreen(200, 40, "UM_State: %s", "Patrol");
 		}
-		else {
-			navigateUnit(u);
+		else if (u->isIdle() && !lastSeenEnemies.empty()) {
+			//u->attack(u->getClosestUnit(Filter::IsEnemy));
+			invade(u);
+			Broodwar->drawTextScreen(200, 40, "UM_State: %s", "Invade");
 		}
+	}
+}
+
+void UnitManager::invade(BWAPI::Unit unit) {
+	if (curTarget == Position(Broodwar->self()->getStartLocation()) || unit->getPosition() == curTarget) {
+		curTarget = lastSeenEnemies.front();
+		lastSeenEnemies.pop_front();
+	}
+	if(unit->getClosestUnit(Filter::IsEnemy)!=nullptr){
+		unit->attack(unit->getClosestUnit(Filter::IsEnemy));
+	}
+	else {
+		unit->attack(curTarget);
+	}
+}
+
+void UnitManager::addEnemyTarget(BWAPI::Unit scum) {
+	if (std::find(lastSeenEnemies.begin(), lastSeenEnemies.end(), scum->getPosition()) == lastSeenEnemies.end()) {
+		lastSeenEnemies.push_front(scum->getPosition());
 	}
 }
 
 void UnitManager::navigateUnit(BWAPI::Unit unit) {
 	if(unit->getRegion()!=curNode.getRegion()){
-		unit->attack(curNode.getRegion()->getCenter());
-		Broodwar << "ARRIVED" << std::endl;
+		unit->patrol(curNode.getRegion()->getCenter());
 	}
 	else if (unit->getRegion() == curNode.getRegion()) {
 		checkUnexplored(curNode.getRegion());
@@ -103,7 +137,6 @@ void UnitManager::genMarchPath(BWAPI::Region start, BWAPI::Region destination) {
 		BWAPI::Regionset neighbors = currentRegion->getNeighbors();
 		for (BWAPI::Region neighbor : neighbors) {
 			if (neighbor == destination) {
-				Broodwar << "Destination Found" << std::endl;
 				genShortPath(neighbor, start, visitedFrom);
 			}
 			else if (visitedFrom.find(neighbor) == visitedFrom.end()) {
@@ -345,6 +378,12 @@ bool UnitManager::removeUnit(BWAPI::Unit unit)
 			BWAPI::Broodwar << "UM: Removed Vulture Unit!" << std::endl;
 		}
 		return true;
+	}
+	else if (unit->getType() == BWAPI::UnitTypes::Terran_SCV) {
+		scouts.erase(unit);
+		if (isDebug) {
+			BWAPI::Broodwar << "UM: Removed SCV Scout Unit!" << std::endl;
+		}
 	}
 	return false;
 }

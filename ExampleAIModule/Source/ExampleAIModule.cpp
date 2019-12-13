@@ -25,7 +25,7 @@ void ExampleAIModule::onStart()
   //Create subagents
   workerManager = *new WorkerManager();
   producer = *new Producer();
-  unitManager = *new UnitManager();
+  unitManager = *new UnitManager(&workerManager);
   builder = *new Builder(&workerManager, &producer, homeBase);
 
   //Add minerals to lists
@@ -188,9 +188,10 @@ void ExampleAIModule::onNukeDetect(BWAPI::Position target)
 
 void ExampleAIModule::onUnitDiscover(BWAPI::Unit unit)
 {
-	std::list<BWAPI::Unit> theirUnits;
-	if (std::find(theirUnits.begin(), theirUnits.end(), unit) != theirUnits.end()) {
-		unitManager.allAttack(unit);
+	if (unit->getPlayer() == Broodwar->enemy()) {
+		//unitManager.allAttack(unit);
+		unitManager.addEnemyTarget(unit);
+		Broodwar << "TARGET ADDED" << std::endl;
 	}
 }
 
@@ -264,7 +265,7 @@ void ExampleAIModule::addUnit(BWAPI::Unit unit) {
 	}
 	else if (unitManager.sortUnit(unit)) {
 		unitManager.addUnit(unit);
-		unitManager.squadify(unit);
+		//unitManager.squadify(unit);
 	}
 }
 
@@ -318,7 +319,7 @@ void ExampleAIModule::removeUnit(BWAPI::Unit unit) {
 
 	
 	else if (unitManager.removeUnit(unit)) {
-		//Function will return true or false depending on if the unit is a combat unit.
+		//Function will return true or false depending on if the unit is a combat unit, and will be removed accordingly.
 	}
 }
 
