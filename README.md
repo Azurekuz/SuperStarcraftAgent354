@@ -1,3 +1,6 @@
+# Our Code
+You'll find the bulk of our work in the ExampleAIModule/Source/ directory where everything, with the exception of DLL.CPP and the original unmodified state of the ExampleAIModule.cpp and ExampleAIModule.h, is done by our group with the great assistance of the [BWAPI](https://bwapi.github.io/) (Brood War API) to allow us to interact directly with the StarCraft Broodwar game and its objects, units, and structures, allowing us to focus on crafting the AI behavior.
+
 # PEAS
 
 ## Performance
@@ -47,6 +50,9 @@ Assignments:
 - Eugene: Creating GitHub Repo and Wiki, **Getting SCVs Units to gather resources**
 
 # Updates
+## Update on December 13th
+Our agent now scouts the map using an SCV and is able to send units to attack positions where enemies have been spotted, as well as targetting nearby enemies.
+
 ## Update on November 20th
 Our present plan is to create a multi-cooperative agent structure where each group member works on an individual module with its own independant set of responsibilities and functions; however, these modules will communicate with one another in order to function effectively while maintaining a relatively modular and readable source code. This is also to make working with the repo easier without stepping on one another's toes, especially when we're working on the code base simultaneously. We keep in mind the individual task our own modular agent must accomplish; however, we must also understand the interdependencies and communication with the other modules.
 Additionally, we've considered incorporating a finite-state machine structure in order to have agent be intelligent in its prioritization, since it must juggle between advancing and producing combat units to accumulate an army, but also manage the economy required to produce said army and increasing the maximum unit capacity to avoid creating a production bottleneck.
