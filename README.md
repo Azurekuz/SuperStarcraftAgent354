@@ -1,5 +1,5 @@
 # Our Code
-You'll find the bulk of our work in the ExampleAIModule/Source/ directory where everything, with the exception of DLL.CPP and the original unmodified state of the ExampleAIModule.cpp and ExampleAIModule.h, is done by our group with the great assistance of the [BWAPI](https://bwapi.github.io/) (Brood War API) to allow us to interact directly with the StarCraft Broodwar game and its objects, units, and structures, allowing us to focus on crafting the AI behavior.
+You'll find the bulk of our work in the ExampleAIModule/Source/ directory where everything, with the exception of DLL.cpp and the original unmodified version of the ExampleAIModule.cpp and ExampleAIModule.h, is done by our group with the great assistance of the [BWAPI](https://bwapi.github.io/) (Brood War API) to allow us to interact directly with the StarCraft Broodwar game and its objects, units, and structures, allowing us to focus on crafting the AI behavior.
 
 # PEAS
 
