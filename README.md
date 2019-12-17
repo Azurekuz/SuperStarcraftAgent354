@@ -2,7 +2,7 @@
 You'll find the bulk of our work in the ExampleAIModule/Source/ directory where everything, with the exception of DLL.cpp and the original unmodified version of the ExampleAIModule.cpp and ExampleAIModule.h, is done by our group with the great assistance of the [BWAPI](https://bwapi.github.io/) (Brood War API) to allow us to interact directly with the StarCraft Broodwar game and its objects, units, and structures, allowing us to focus on crafting the AI behavior.
 
 # Setup
-1. Install [*Starcraft: Broodwar*](https://www.blizzard.com/en-us/download/confirmation?platform=windows&locale=enUS&version=LIVE&id=sca) then patch it to [Starcraft 1.16.10](http://ftp.blizzard.com/pub/broodwar/patches/PC/BW-1161.exe) ([Source](https://github.com/davechurchill/ualbertabot/wiki/Installation-Instructions))
+1. Install [*Starcraft: Broodwar*](https://www.blizzard.com/en-us/download/confirmation?platform=windows&locale=enUS&version=LIVE&id=sca) then patch it to [Starcraft 1.16.1](http://ftp.blizzard.com/pub/broodwar/patches/PC/BW-1161.exe) ([Source](https://github.com/davechurchill/ualbertabot/wiki/Installation-Instructions))
 2. Install [BWAPI (Brood War API) 4.4.0](https://github.com/bwapi/bwapi/releases)
 3. Install [Microsoft Visual Studio 2017](https://docs.microsoft.com/en-us/visualstudio/releasenotes/vs2017-relnotes)
 4. Download or clone the repository. Open up the *ExampleProjects.sln*, on the project sidebar on the right, right-click *354Bot* and click *Build*. In the repository directory, in the *Release* folder you should find *354Bot.dll*. Take note of where it is in the file directory.
