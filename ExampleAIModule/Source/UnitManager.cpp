@@ -72,15 +72,15 @@ void UnitManager::commandUnits() {
 }
 
 void UnitManager::invade(BWAPI::Unit unit) {
-	if (curTarget == Position(Broodwar->self()->getStartLocation()) || unit->getPosition() == curTarget) {
+	if (curTarget == Position(Broodwar->self()->getStartLocation()) || allUnitSet.getPosition() == curTarget) {
 		curTarget = lastSeenEnemies.front();
 		lastSeenEnemies.pop_front();
 	}
-	if(unit->getClosestUnit(Filter::IsEnemy)!=nullptr){
-		unit->attack(unit->getClosestUnit(Filter::IsEnemy));
+	if(allUnitSet.getClosestUnit(Filter::IsEnemy)!=nullptr){
+		allUnitSet.attack(unit->getClosestUnit(Filter::IsEnemy));
 	}
 	else {
-		unit->attack(curTarget);
+		allUnitSet.attack(curTarget);
 	}
 }
 
@@ -198,8 +198,10 @@ void UnitManager::allAttack(BWAPI::Unit target) {
 }
 
 void UnitManager::retaliate(BWAPI::Position destroyed) {
-	for (BWAPI::Unit &u : allCombatUnits) {
-		u->attack(destroyed);
+	if(allCombatUnits.size() >= 15){
+		for (BWAPI::Unit &u : allCombatUnits) {
+			u->attack(destroyed);
+		}
 	}
 }
 
